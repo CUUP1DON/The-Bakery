@@ -1,0 +1,19 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "The Bakery",
+	"Description": "Pregnancy and birth for everyone: same-sex couples, optional pregnancy chances, and a cozy settings window.",
+	"Category": "Other",
+	"CreatedBy": "cuupidon",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"ModCode": "9D123A42",
+	"MigrationState": 5
+}

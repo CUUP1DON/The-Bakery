@@ -1,0 +1,9 @@
+{
+	"meta":
+	{
+		"schema": "DataAssetPatch",
+		"scriptPath": "/Script/BlueUtils.B1LevelSequenceDataAsset",
+		"typeId": "DA_LevelSequence"
+	},
+	"PatchList": []
+}

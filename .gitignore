@@ -1,0 +1,12 @@
+# ModKit / Unreal build output
+Pregnancy_Mod_9D123A42/DataStage/
+Pregnancy_Mod_9D123A42/Intermediate/
+Pregnancy_Mod_9D123A42/Saved/
+*.zip
+
+# Editor and OS clutter
+.vs/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

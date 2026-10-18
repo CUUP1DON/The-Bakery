@@ -1,0 +1,9 @@
+{
+	"apps": [
+		{
+			"name": "The_Bakery",
+			"default": true,
+			"enabled": true
+		}
+	]
+}

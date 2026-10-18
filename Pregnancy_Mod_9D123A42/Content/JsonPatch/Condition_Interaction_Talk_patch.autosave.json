@@ -1,0 +1,1675 @@
+{
+	"Struct": "Condition",
+	"BaseVersion": "20261011.16078.W.MODKIT.EGS",
+	"SaveVersion": "20261011.16078.W.MODKIT.EGS",
+	"PatchList": [
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_30_Less].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": 10,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "Less",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_30_Over].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_30_Less].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GenderCompWithTarget",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_30_Over].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GenderCompWithTarget",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=FM_UnbornBabyMale].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyEarly",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "UnbornBabyGender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=FM_UnbornBabyFemale].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyEarly",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "UnbornBabyGender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=FM_UnbornBabyMale].OrConditionsList",
+			"Value": [],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=FM_UnbornBabyFemale].OrConditionsList",
+			"Value": [],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=Pregnancy_NewLifeDiscovery_01].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyEarly",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Pregnancy_HeardFromPartner",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Relationshipstat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Parent",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Child",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=Pregnancy_NewLifeDiscovery_02].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyEarly",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Pregnancy_HeardFromPartner",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Relationshipstat",
+							"CompareType": "Less",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Parent",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Child",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=Pregnancy_NewLifeDiscovery_Partner_Feedback].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Relationshipstat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyEarly",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Pregnancy_Congratulations",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Pregnancy_HeardFromPartner",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Parent",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Child",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=Pregnancy_NewLifeDiscovery_Bad_Partner_Feedback].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Relationshipstat",
+							"CompareType": "Less",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyEarly",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "LowTeen",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Parent",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Child",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": 10,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Bed_Double_ForCondition",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GenderCompWithTarget",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_NoSpouse].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GenderCompWithTarget",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_60_Less_NoSpouse].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GenderCompWithTarget",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_60_Over_NoSpouse].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GenderCompWithTarget",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "CanPregnancy",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_NoSpouse].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": 50,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Bed_Double_ForCondition",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_60_Less_NoSpouse].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": 50,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "Less",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": 60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanPregnancy_60_Over_NoSpouse].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": 60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Buff",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		}
+	]
+}

@@ -1,0 +1,31 @@
+{
+	"bindings":
+	{
+		"B2": [
+			{
+				"type": "Manager",
+				"key": "Time",
+				"script": "Manager.SameSexPregnancy"
+			},
+			{
+				"type": "Zoi",
+				"key": "*",
+				"script": "Zoi.SSPBridge"
+			}
+		],
+		"B1": [
+			{
+				"type": "Zoi",
+				"key": "*",
+				"script": "Zoi.SSPBridge"
+			}
+		]
+	},
+	"chunkScripts":
+	{
+		"B2": [
+			"Actions.B2Action_LevelSequence",
+			"Scripts.B2Script_Marriage"
+		]
+	}
+}

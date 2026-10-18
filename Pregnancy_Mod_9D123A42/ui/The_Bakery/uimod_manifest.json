@@ -1,0 +1,18 @@
+{
+	"name": "The Bakery",
+	"entry": "index.html",
+	"display": {
+		"width": 1920,
+		"height": 1080,
+		"transparent": true,
+		"input_policy": "overlay"
+	},
+	"triggers": [
+		{
+			"id": "menu_0",
+			"type": "interaction_menu",
+			"target": "character",
+			"label_key": "The Bakery Settings"
+		}
+	]
+}

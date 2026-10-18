@@ -1,0 +1,65 @@
+{
+	"Struct": "Condition",
+	"BaseVersion": "20261011.16078.W.MODKIT.EGS",
+	"SaveVersion": "20261011.16078.W.MODKIT.EGS",
+	"PatchList": [
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction[Id=CheckPregnant_Fail].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction[Id=CheckPregnant_Success].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Buff",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction[Id=CheckPregnant_Success].OrConditionsList",
+			"Value": [],
+			"Enabled": true
+		}
+	]
+}

@@ -1,0 +1,288 @@
+{
+	"Struct": "Script",
+	"BaseVersion": "20261011.16078.W.MODKIT.EGS",
+	"SaveVersion": "20261011.16078.W.MODKIT.EGS",
+	"PatchList": [
+		{
+			"Method": "Override",
+			"Query": "Script_Talk[Id=PregnancyFail].Scripts",
+			"Value": [
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddBuff",
+							"S1": "PregnancyFailure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "AddBuff",
+							"S1": "PregnancyFailure2",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "PopupMessage",
+							"S1": "NoticePregnancy_Fail",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Script_Talk[Id=PregnancyTest_Success].Scripts",
+			"Value": [
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsFullHouseholdMembers",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddBuff",
+							"S1": "PregnancyTest_Success",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				},
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsFullHouseholdMembers",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddBuff",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				},
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddHowling",
+							"S1": "Howling_TryToHaveChildren_After",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "AddStat",
+							"S1": "Society",
+							"S2": "{Except}",
+							"F1": 0.10000000000000001,
+							"F2": 0,
+							"Prob": 1
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "AddStat",
+							"S1": "Fun",
+							"S2": "{Except}",
+							"F1": 0.10000000000000001,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Script_Talk[Id=PregnancyTest_Fail].Scripts",
+			"Value": [
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddBuff",
+							"S1": "PregnancyTest_Failure",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				},
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddHowling",
+							"S1": "Howling_TryToHaveChildren_After",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0,
+							"Prob": 1
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "AddStat",
+							"S1": "Society",
+							"S2": "{Except}",
+							"F1": 0.10000000000000001,
+							"F2": 0,
+							"Prob": 1
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "AddStat",
+							"S1": "Fun",
+							"S2": "{Except}",
+							"F1": 0.10000000000000001,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				}
+			],
+			"Enabled": true
+		}
+	]
+}

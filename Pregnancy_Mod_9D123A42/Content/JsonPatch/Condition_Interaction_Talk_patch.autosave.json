@@ -1396,6 +1396,16 @@
 						},
 						{
 							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Romance",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
 							"Command": "Buff",
 							"CompareType": "NotEqual",
 							"UseHand": "Default",
@@ -1507,6 +1517,16 @@
 						},
 						{
 							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Romance",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
 							"Command": "Buff",
 							"CompareType": "NotEqual",
 							"UseHand": "Default",
@@ -1594,6 +1614,16 @@
 							"S1": "Friendship",
 							"S2": "None",
 							"F1": 60,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Romance",
+							"S2": "None",
+							"F1": -1000,
 							"F2": 0
 						},
 						{

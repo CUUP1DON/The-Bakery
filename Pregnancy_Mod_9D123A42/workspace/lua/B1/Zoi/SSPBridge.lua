@@ -31,6 +31,8 @@ end
 ---@param content string
 function M.on_lua_message(self, owner, kind, content)
     if kind == "ssp_toastclear" then
+        -- the cheat toast shows a few frames after the cheat runs and lasts 5 s: clear now and on every tick for 4 s
+        Ids.toast_until = os.clock() + 4.0
         pcall(function() inzoi.cli.execute("toast.clear") end)
     elseif kind == "ssp_pending" then
         inzoi.cli.execute("uimod.cfg_save mod_id=" .. MOD .. " section=settings key=ssp_pending value=" .. clean(content))

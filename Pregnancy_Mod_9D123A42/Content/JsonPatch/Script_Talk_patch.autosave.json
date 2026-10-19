@@ -9,18 +9,7 @@
 			"Value": [
 				{
 					"IfType": "If",
-					"Conditions": [
-						{
-							"BaseObject": "Self",
-							"Command": "IsPregnancyState",
-							"CompareType": "NotEqual",
-							"UseHand": "Default",
-							"S1": "None",
-							"S2": "None",
-							"F1": 0,
-							"F2": 0
-						}
-					],
+					"Conditions": [],
 					"Executes": [
 						{
 							"BaseObject": "Self",
@@ -179,7 +168,7 @@
 							"Command": "AddStat",
 							"S1": "Society",
 							"S2": "{Except}",
-							"F1": 0.10000000000000001,
+							"F1": 0.1,
 							"F2": 0,
 							"Prob": 1
 						},
@@ -188,7 +177,7 @@
 							"Command": "AddStat",
 							"S1": "Fun",
 							"S2": "{Except}",
-							"F1": 0.10000000000000001,
+							"F1": 0.1,
 							"F2": 0,
 							"Prob": 1
 						}
@@ -266,7 +255,7 @@
 							"Command": "AddStat",
 							"S1": "Society",
 							"S2": "{Except}",
-							"F1": 0.10000000000000001,
+							"F1": 0.1,
 							"F2": 0,
 							"Prob": 1
 						},
@@ -275,7 +264,40 @@
 							"Command": "AddStat",
 							"S1": "Fun",
 							"S2": "{Except}",
-							"F1": 0.10000000000000001,
+							"F1": 0.1,
+							"F2": 0,
+							"Prob": 1
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Script_Talk[Id=Pregnant_Success_MorningSickness].Scripts",
+			"Value": [
+				{
+					"IfType": "If",
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsPregnancyState",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					],
+					"Executes": [
+						{
+							"BaseObject": "Self",
+							"Command": "AddBuff",
+							"S1": "MorningSickness",
+							"S2": "None",
+							"F1": 0,
 							"F2": 0,
 							"Prob": 1
 						}

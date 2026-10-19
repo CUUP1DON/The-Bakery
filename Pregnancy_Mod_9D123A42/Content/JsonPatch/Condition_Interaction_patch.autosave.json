@@ -18,16 +18,6 @@
 							"S2": "None",
 							"F1": 0,
 							"F2": 0
-						},
-						{
-							"BaseObject": "Self",
-							"Command": "IsPregnancyState",
-							"CompareType": "NotEqual",
-							"UseHand": "Default",
-							"S1": "None",
-							"S2": "None",
-							"F1": 0,
-							"F2": 0
 						}
 					]
 				}

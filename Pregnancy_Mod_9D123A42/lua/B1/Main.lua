@@ -37,16 +37,29 @@ local function build_cfg_message(data)
     if v then parts[#parts + 1] = "both=" .. v end
     v = string.match(data, 'npcCouples\\?"%s*:%s*\\?"(%a+)')
     parts[#parts + 1] = "npc=" .. ((v == "on") and "1" or "0")
+    v = string.match(data, 'testFail\\?"%s*:%s*([%d%.]+)')
+    if v then parts[#parts + 1] = "fail=" .. v end
+    v = string.match(data, 'birthCutscene\\?"%s*:%s*\\?"(%a+)')
+    if v then parts[#parts + 1] = "cut=" .. v end
     return table.concat(parts, ";")
 end
 
 -- Data-side settings (B1 only: data.patch). Applied at boot after the first successful read and then only
 -- when a value changes. A failed apply is retried on the next poll.
 local function apply_data_settings(self, data)
-    local u = Unmarried.normalize(string.match(data, 'unmarried\\?"%s*:%s*\\?"(%a+)'))
-    if self.applied_unmarried ~= u then
-        local ok, done = pcall(Unmarried.apply, u)
-        if ok and done then self.applied_unmarried = u end
+    local f = string.match(data, 'reqFriend\\?"%s*:%s*(%-?[%d%.]+)')
+    local r = string.match(data, 'reqRomance\\?"%s*:%s*(%-?[%d%.]+)')
+    local m = string.match(data, 'reqMarried\\?"%s*:%s*(%-?[%d%.]+)')
+    local c = string.match(data, 'reqChat\\?"%s*:%s*(%-?[%d%.]+)')
+    if not f and not r then
+        -- saved by an older version: the three-way "unmarried" choice
+        f, r = Unmarried.legacy(string.match(data, 'unmarried\\?"%s*:%s*\\?"(%a+)'))
+    end
+    f, r, m, c = Unmarried.clamp(f, 50), Unmarried.clamp(r, 0), Unmarried.clamp(m, 10), Unmarried.clamp(c, 30)
+    local key = f .. "," .. r .. "," .. m .. "," .. c
+    if self.applied_req ~= key then
+        local ok, done = pcall(Unmarried.apply, f, r, m, c)
+        if ok and done then self.applied_req = key end
     end
     local on = string.match(data, 'npcCouples\\?"%s*:%s*\\?"(%a+)') == "on"
     if self.applied_npc ~= on then
@@ -92,6 +105,27 @@ local function check_build(self)
     self.was_building = building
 end
 
+-- Cheats page "Trimester" chips: the page saves "stamp;entityId,Stage;entityId,Stage" under "stage_req". Each id is
+-- told (straight to its own B2 script) to move forward to that stage. A stamp that was already there when the
+-- game started is ignored.
+local function stage_value()
+    local data = load_key("stage_req")
+    if not data then return nil end
+    return string.match(data, '"value"%s*:%s*\\?"([%w,;_]*)')
+end
+
+local function check_stage(self)
+    local v = stage_value()
+    if not v or v == "" then return end
+    local stamp = string.match(v, "^(%d+)")
+    if not stamp or stamp == self.stage_seen then return end
+    self.stage_seen = stamp
+    for id, stage in string.gmatch(v, ";(%d+),(%a+)") do
+        local eid = tonumber(id)
+        if eid then pcall(function() inzoi.message.send_to_sim(eid, "ssp_stage", stage) end) end
+    end
+end
+
 local function push(self)
     local eid = Ids.any()
     if not eid then return end
@@ -111,16 +145,21 @@ function M.on_begin(self)
     self.acc = POLL -- first push as soon as a character exists
     self.since = RESEND
     self.last = nil
-    self.applied_unmarried = nil
+    self.applied_req = nil
     self.applied_npc = nil
     self.close_acc = 0
     self.close_seen = false -- a stamp left by an earlier session is read here so it is not acted on
     pcall(function() self.close_seen = close_stamp() or false end)
+    self.stage_seen = false
+    pcall(function() local v = stage_value(); self.stage_seen = v and string.match(v, "^(%d+)") or false end)
 end
 
 ---@param self table
 ---@param dt number
 function M.on_tick(self, dt)
+    if os.clock() < Ids.toast_until then
+        pcall(function() inzoi.cli.execute("toast.clear") end)
+    end
     self.acc = (self.acc or 0) + dt
     self.since = (self.since or 0) + dt
     self.close_acc = (self.close_acc or 0) + dt
@@ -128,6 +167,7 @@ function M.on_tick(self, dt)
         self.close_acc = 0
         pcall(check_close, self)
         pcall(check_build, self)
+        pcall(check_stage, self)
     end
     if self.acc < POLL then return end
     self.acc = 0

@@ -19,7 +19,7 @@
     var MOD = wf.MOD_ID;
 
     // ------------------------------------------------------------------ settings
-    var DEFAULTS = { allowMM: true, allowFF: true, motherMode: 'random', bothChance: 0, unmarried: 'friendship', npcCouples: 'off', autonomy: true, scale: 0.6 };
+    var DEFAULTS = { allowMM: true, allowFF: true, motherMode: 'random', bothChance: 0, reqFriend: 50, reqRomance: 0, reqMarried: 10, reqChat: 30, testFail: 0, birthCutscene: 'skip', npcCouples: 'off', autonomy: true, scale: 0.6 };
     var cfg = JSON.parse(JSON.stringify(DEFAULTS));
     var AUTONOMY_BAGS = ['Co_TryToHaveChildren', 'Co_TryToHaveChildren_NoSpouse']; // vanilla autonomy weight is 10
     var VANILLA_WEIGHT = 10;
@@ -64,12 +64,21 @@
                 cfg.bothChance = snapChance(cfg.bothChance);
                 if (!(cfg.scale >= MIN_SCALE && cfg.scale <= MAX_SCALE)) cfg.scale = DEFAULTS.scale;
                 effScale = cfg.scale;
-                if (cfg.unmarried !== 'friendship' && cfg.unmarried !== 'romance' && cfg.unmarried !== 'none') cfg.unmarried = 'friendship';
+                if (!o.hasOwnProperty('reqFriend') && !o.hasOwnProperty('reqRomance')) {
+                    // saved by an older version: Friendship / Romance / Nothing
+                    if (o.unmarried === 'romance') { cfg.reqFriend = 0; cfg.reqRomance = 50; }
+                    else if (o.unmarried === 'none') { cfg.reqFriend = 0; cfg.reqRomance = 0; }
+                }
+                cfg.reqFriend = snapReq(cfg.reqFriend, 50); cfg.reqRomance = snapReq(cfg.reqRomance, 0); cfg.reqMarried = snapReq(cfg.reqMarried, 10); cfg.reqChat = snapReq(cfg.reqChat, 30);
+                cfg.testFail = snapChance(cfg.testFail);
+                if (cfg.birthCutscene !== 'play' && cfg.birthCutscene !== 'skip') cfg.birthCutscene = 'skip';
                 if (cfg.npcCouples !== 'on' && cfg.npcCouples !== 'off') cfg.npcCouples = 'off';
             }
         }).catch(function () {});
     }
 
+    var REQ_STEP = 5;
+    function snapReq(v, d) { v = Math.round(Number(v)); if (!(v >= 0)) return d; return Math.min(100, v); }
     var CHANCES = [[0, 'Never'], [10, 'Rare'], [25, 'Sometimes'], [50, 'Often'], [100, 'Always']];
     function snapChance(v) {
         var best = 0, d = 1e9;
@@ -124,12 +133,15 @@
             '.ssp-card{background:' + CARD + ';border:2.5px solid ' + NAVY + ';border-radius:7px;box-shadow:4px 4px 0 ' + NAVY + ';}',
             '.ssp-hatch{background-color:' + BLUE + ';background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.75) 0px,rgba(255,255,255,0.75) 3px,rgba(255,255,255,0) 3px,rgba(255,255,255,0) 9px);}',
             '.ssp-click{cursor:pointer;user-select:none;-webkit-user-select:none;}',
+            '#ssp-diary::-webkit-scrollbar{width:10px;}',
+            '#ssp-diary::-webkit-scrollbar-track{background:rgba(31,45,77,0.10);border-radius:5px;}',
+            '#ssp-diary::-webkit-scrollbar-thumb{background:' + NAVY + ';border-radius:5px;}',
             '.ssp-head{font-size:26px;font-weight:700;color:' + RED + ';}',
             '.ssp-h1{font-family:"Caveat Brush",cursive;}',
             '.ssp-pick:hover{background:' + BLUE + ';}',
             '.ssp-card,.ssp-click,.ssp-tbtn,.ssp-tbtn2,.ssp-tool,#close-btn{transition:background-color 0.18s ease,box-shadow 0.18s ease,transform 0.18s ease,opacity 0.22s ease,border-color 0.18s ease,color 0.18s ease;}',
             '.ssp-click:active,.ssp-tbtn:active,.ssp-tool:active{transform:translate(2px,2px);}',
-            '#ssp-pageSettings,#ssp-pageCheats{transition:opacity 0.2s ease;}',
+            '#ssp-pageSettings,#ssp-pageCheats,#ssp-pageReq,#ssp-pagePre{transition:opacity 0.2s ease;}',
             '#hide-btn{display:none !important;}',
             '#ssp-picker{transition:opacity 0.2s ease;}',
             '.ssp-opt:hover{background:' + BLUE + ' !important;}',
@@ -176,7 +188,7 @@
     var el = {};
 
     // ------------------------------------------------------------------ state
-    var ctx = { selfId: null, targetId: null, you: null, target: null, busy: false, pickSlot: null, showAll: false, cheatOpen: false, youState: null, tgtState: null };
+    var ctx = { selfId: null, targetId: null, you: null, target: null, busy: false, pickSlot: null, showAll: false, cheatOpen: false, reqOpen: false, preOpen: false, youState: null, tgtState: null };
     var ADULT = { Youth: 1, Adult: 1, Old: 1, Elderly: 1 };
     var AGE_TEXT = { Youth: 'Young Adult', Adult: 'Adult', Old: 'Older Adult', Elderly: 'Elder' };
     var roster = [];
@@ -210,7 +222,7 @@
     function say(msg) {
         log('diary: ' + msg);
         diaryLines.push(msg);
-        if (diaryLines.length > 40) diaryLines.shift();
+        if (diaryLines.length > 100) diaryLines.shift();
         fadeLast = true; renderDiary(); fadeLast = false;
         if (el.diary) el.diary.scrollTop = el.diary.scrollHeight;
     }
@@ -232,11 +244,36 @@
 
         content.innerHTML = sc(
             '<div id="ssp-pageSettings">' +
-            // setting tiles
+            // setting tiles: two per row
             '<div class="ssp-row" style="margin-bottom:16px;">' +
               '<div id="ssp-tMM" class="ssp-card ssp-click" style="flex:1 1 0px;min-width:0px;margin-right:16px;padding:12px 8px 10px;text-align:center;"></div>' +
-              '<div id="ssp-tFF" class="ssp-card ssp-click" style="flex:1 1 0px;min-width:0px;margin-right:16px;padding:12px 8px 10px;text-align:center;"></div>' +
-              '<div id="ssp-tAuto" class="ssp-card ssp-click" style="flex:1 1 0px;min-width:0px;padding:12px 8px 10px;text-align:center;"></div>' +
+              '<div id="ssp-tFF" class="ssp-card ssp-click" style="flex:1 1 0px;min-width:0px;padding:12px 8px 10px;text-align:center;"></div>' +
+            '</div>' +
+            '<div class="ssp-row" style="margin-bottom:16px;">' +
+              '<div id="ssp-tAuto" class="ssp-card ssp-click" style="flex:1 1 0px;min-width:0px;margin-right:16px;padding:12px 8px 10px;text-align:center;"></div>' +
+              '<div id="ssp-tNpc" class="ssp-card ssp-click" style="flex:1 1 0px;min-width:0px;padding:12px 8px 10px;text-align:center;"></div>' +
+            '</div>' +
+            // sections (each opens its own page)
+            '<div id="ssp-preHead" class="ssp-card ssp-click" style="padding:8px 14px;margin-bottom:16px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">Pregnancy</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">Who carries, both partners, tests, birth scene</div></div>' +
+              '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
+            '</div>' +
+            '<div id="ssp-reqHead" class="ssp-card ssp-click" style="padding:8px 14px;margin-bottom:16px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">Requirements</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">Unmarried, married, pregnancy chats</div></div>' +
+              '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
+            '</div>' +
+            '<div id="ssp-cheatHead" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">Cheats</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">Start a test, deliver a baby, remove a pregnancy</div></div>' +
+              '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
+            '</div>' +
+            '</div>' +
+            '<div id="ssp-pagePre" style="display:none;opacity:0;">' +
+            '<div id="ssp-preBack" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px;">' +
+              '<div style="font-size:34px;font-weight:700;margin-right:12px;">&lt;</div>' +
+              '<div class="ssp-head" style="font-size:24px;">Pregnancy</div>' +
             '</div>' +
             // who carries
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
@@ -254,22 +291,42 @@
               '<div style="font-size:19px;color:' + MUTED + ';">Chance that BOTH partners become pregnant at once. Never = only one does.</div>' +
               '<div id="ssp-chBoth" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
-            // unmarried couples
+            // chance a pregnancy test comes back negative (the game's own negative test)
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">Pregnancy tests</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">Chance a test comes back negative. Never = always positive.</div>' +
+              '<div id="ssp-chFail" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
+            // birth scene of a male carrier
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">Birth scene for male carriers</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">The game\'s birth scene only has a woman in it, so the bed is empty for a man.</div>' +
+              '<div id="ssp-chCut" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
+            '</div>' +
+            '<div id="ssp-pageReq" style="display:none;opacity:0;">' +
+            '<div id="ssp-reqBack" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px;">' +
+              '<div style="font-size:34px;font-weight:700;margin-right:12px;">&lt;</div>' +
+              '<div class="ssp-head" style="font-size:24px;">Requirements</div>' +
+            '</div>' +
+            // unmarried couples: what they need
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
               '<div class="ssp-head">Unmarried couples</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">What an unmarried couple needs before they can try for a baby.</div>' +
-              '<div id="ssp-chUnm" class="ssp-row" style="margin-top:6px;"></div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">What they need before they can try for a baby. 0 = not needed.</div>' +
+              '<div id="ssp-stFriend" class="ssp-row" style="margin-top:6px;"></div>' +
+              '<div id="ssp-stRomance" class="ssp-row" style="margin-top:10px;"></div>' +
             '</div>' +
-            // same-sex couples in town (NPCs)
+            // married couples: what they need
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Couples in town</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Let same-sex couples you are not playing have babies too.</div>' +
-              '<div id="ssp-chNpc" class="ssp-row" style="margin-top:6px;"></div>' +
+              '<div class="ssp-head">Married couples</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">What they need before they can try for a baby. 0 = not needed.</div>' +
+              '<div id="ssp-stMarried" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
-            // cheats (collapsed by default)
-            '<div id="ssp-cheatHead" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
-              '<div class="ssp-head" style="font-size:24px;">Cheats</div>' +
-              '<div id="ssp-cheatMark" style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
+            // friends' pregnancy chats
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">Pregnancy chats</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">How close friends must be to check in on a pregnancy and talk about the baby. 0 = not needed.</div>' +
+              '<div id="ssp-stChat" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
             '</div>' +
             '<div id="ssp-pageCheats" style="display:none;opacity:0;">' +
@@ -311,6 +368,12 @@
                 '<div id="ssp-remTgt" class="ssp-click ssp-tool">Remove pregnancy</div>' +
               '</div>' +
             '</div>' +
+            // trimester (move an expecting partner forward to check the baby bump)
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-top:16px;">' +
+              '<div class="ssp-head">Trimester</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">Move whoever is expecting forward to check the baby bump. It only goes forward.</div>' +
+              '<div id="ssp-stageRow" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
             '</div>' +
             // diary (always visible; select the text or press Copy)
             '<div class="ssp-card" style="padding:10px 14px 12px;margin-top:16px;">' +
@@ -318,23 +381,24 @@
                 '<div style="font-size:22px;font-weight:700;color:' + RED + ';">Diary</div>' +
                 '<div id="ssp-copy" class="ssp-click ssp-tbtn2">Copy</div>' +
               '</div>' +
-              '<div id="ssp-diary" style="font-size:22px;line-height:28px;height:84px;overflow-y:auto;user-select:text;-webkit-user-select:text;cursor:text;background-image:repeating-linear-gradient(180deg,rgba(255,250,240,0) 0px,rgba(255,250,240,0) 27px,rgba(80,130,180,0.5) 27px,rgba(80,130,180,0.5) 28px);background-attachment:local;"></div>' +
+              '<div id="ssp-diary" style="font-size:22px;line-height:28px;height:168px;overflow-y:auto;user-select:text;-webkit-user-select:text;cursor:text;background-image:repeating-linear-gradient(180deg,rgba(255,250,240,0) 0px,rgba(255,250,240,0) 27px,rgba(80,130,180,0.5) 27px,rgba(80,130,180,0.5) 28px);background-attachment:local;"></div>' +
             '</div>');
 
         el = {
             cardYou: $('ssp-cardYou'), cardTgt: $('ssp-cardTgt'),
             youName: $('ssp-youName'), youInfo: $('ssp-youInfo'), tgtName: $('ssp-tgtName'), tgtInfo: $('ssp-tgtInfo'),
             picker: $('ssp-picker'), pickTitle: $('ssp-pickTitle'), pickList: $('ssp-pickList'), pickAll: $('ssp-pickAll'),
-            tMM: $('ssp-tMM'), tFF: $('ssp-tFF'), tAuto: $('ssp-tAuto'),
+            tMM: $('ssp-tMM'), tFF: $('ssp-tFF'), tAuto: $('ssp-tAuto'), tNpc: $('ssp-tNpc'),
             mRand: $('ssp-mRand'), mYou: $('ssp-mYou'), mTgt: $('ssp-mTgt'),
-            chBoth: $('ssp-chBoth'), chUnm: $('ssp-chUnm'), chNpc: $('ssp-chNpc'),
-            go: $('ssp-go'), diary: $('ssp-diary'), pageSettings: $('ssp-pageSettings'), pageCheats: $('ssp-pageCheats'), cheatBack: $('ssp-cheatBack'), cheatHead: $('ssp-cheatHead'), cheatMark: $('ssp-cheatMark'),
+            stageHost: $('ssp-stageRow'), chBoth: $('ssp-chBoth'), chFail: $('ssp-chFail'), stFriend: $('ssp-stFriend'), stRomance: $('ssp-stRomance'), stMarried: $('ssp-stMarried'), stChat: $('ssp-stChat'), chCut: $('ssp-chCut'),
+            go: $('ssp-go'), diary: $('ssp-diary'), pageSettings: $('ssp-pageSettings'), pageCheats: $('ssp-pageCheats'), pageReq: $('ssp-pageReq'), reqHead: $('ssp-reqHead'), reqBack: $('ssp-reqBack'), pagePre: $('ssp-pagePre'), preHead: $('ssp-preHead'), preBack: $('ssp-preBack'), cheatBack: $('ssp-cheatBack'), cheatHead: $('ssp-cheatHead'), cheatMark: $('ssp-cheatMark'),
             toolYou: $('ssp-toolYou'), stateYou: $('ssp-stateYou'), stateTgt: $('ssp-stateTgt'), toolTgt: $('ssp-toolTgt'), delYou: $('ssp-delYou'), remYou: $('ssp-remYou'), delTgt: $('ssp-delTgt'), remTgt: $('ssp-remTgt'), copy: $('ssp-copy')
         };
 
         el.tMM.addEventListener('click', function () { change(function () { cfg.allowMM = !cfg.allowMM; }); });
         el.tFF.addEventListener('click', function () { change(function () { cfg.allowFF = !cfg.allowFF; }); });
         el.tAuto.addEventListener('click', function () { change(function () { cfg.autonomy = !cfg.autonomy; applyAutonomy(); log('autonomous suggestions ' + (cfg.autonomy ? 'ON (vanilla weight)' : 'OFF')); }); });
+        el.tNpc.addEventListener('click', function () { change(function () { cfg.npcCouples = cfg.npcCouples === 'on' ? 'off' : 'on'; }); });
         el.mRand.addEventListener('click', function () { change(function () { cfg.motherMode = 'random'; }); });
         el.mYou.addEventListener('click', function () { change(function () { cfg.motherMode = 'you'; }); });
         el.mTgt.addEventListener('click', function () { change(function () { cfg.motherMode = 'target'; }); });
@@ -346,6 +410,10 @@
         el.copy.addEventListener('click', copyDiary);
         el.cheatHead.addEventListener('click', function () { ctx.cheatOpen = true; renderCheat(); refreshStates(); });
         el.cheatBack.addEventListener('click', function () { ctx.cheatOpen = false; renderCheat(); });
+        el.reqHead.addEventListener('click', function () { ctx.reqOpen = true; renderCheat(); });
+        el.reqBack.addEventListener('click', function () { ctx.reqOpen = false; renderCheat(); });
+        el.preHead.addEventListener('click', function () { ctx.preOpen = true; renderCheat(); });
+        el.preBack.addEventListener('click', function () { ctx.preOpen = false; renderCheat(); });
         el.cardYou.addEventListener('click', function () { openPicker('you'); });
         el.cardTgt.addEventListener('click', function () { openPicker('target'); });
         el.pickAll.addEventListener('click', function () { ctx.showAll = !ctx.showAll; loadRoster().then(renderPicker); });
@@ -422,20 +490,25 @@
     var cheatTimer = null;
     // pages: Settings <-> Cheats, a quick cross-fade (no sliding, no resizing)
     var pageTimer = null;
+    var curPage = null; // the page actually on screen (updated when a swap happens, not when it is asked for)
     function renderCheat(instant) {
-        var o = ctx.cheatOpen, from = o ? el.pageSettings : el.pageCheats, to = o ? el.pageCheats : el.pageSettings;
+        var to = ctx.cheatOpen ? el.pageCheats : (ctx.reqOpen ? el.pageReq : (ctx.preOpen ? el.pagePre : el.pageSettings));
+        var o = to === el.pageCheats, pages = [el.pageSettings, el.pageCheats, el.pageReq, el.pagePre];
         if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
         fitHold = Date.now() + 600;
-        if (instant) {
-            from.style.display = 'none'; from.style.opacity = '0';
+        if (instant || !curPage) {
+            pages.forEach(function (pg) { if (pg !== to) { pg.style.display = 'none'; pg.style.opacity = '0'; } });
             to.style.display = 'block'; to.style.opacity = '1';
+            curPage = to;
             return;
         }
-        from.style.opacity = '0';
+        if (curPage === to) { to.style.opacity = '1'; return; }
+        curPage.style.opacity = '0';
         pageTimer = setTimeout(function () {
-            from.style.display = 'none';
+            pages.forEach(function (pg) { if (pg !== to) { pg.style.display = 'none'; pg.style.opacity = '0'; } });
             to.style.display = 'block';
             to.style.opacity = '0';
+            curPage = to;
             pageTimer = setTimeout(function () { to.style.opacity = '1'; if (o) renderTools(); }, 30);
         }, 210);
     }
@@ -459,15 +532,48 @@
     function renderSettings() {
         tile(el.tMM, cfg.allowMM, 'Male + male', cfg.allowMM ? 'ALLOWED' : 'OFF');
         tile(el.tFF, cfg.allowFF, 'Female + female', cfg.allowFF ? 'ALLOWED' : 'OFF');
-        tile(el.tAuto, cfg.autonomy, 'Autonomous', cfg.autonomy ? 'ON' : 'OFF');
+        tile(el.tAuto, cfg.autonomy, 'Household Autonomy', cfg.autonomy ? 'ON' : 'OFF');
         motherOpt(el.mRand, cfg.motherMode === 'random');
         motherOpt(el.mYou, cfg.motherMode === 'you');
         motherOpt(el.mTgt, cfg.motherMode === 'target');
         chipRow(el.chBoth, 'bothChance');
-        optRow(el.chUnm, 'unmarried', UNMARRIED);
-        optRow(el.chNpc, 'npcCouples', [['off', 'Off', 'normal game'], ['on', 'On', 'same-sex too']]);
+        chipRow(el.chFail, 'testFail');
+        stepRow(el.stFriend, 'reqFriend', 'Friendship');
+        stepRow(el.stRomance, 'reqRomance', 'Romance');
+        stepRow(el.stMarried, 'reqMarried', 'Family bond');
+        stepRow(el.stChat, 'reqChat', 'Friendship');
+        optRow(el.chCut, 'birthCutscene', [['skip', 'Skip it', 'baby just arrives'], ['play', 'Play it', 'empty bed']]);
+        tile(el.tNpc, cfg.npcCouples === 'on', 'Town Autonomy', cfg.npcCouples === 'on' ? 'ON' : 'OFF');
     }
-    var UNMARRIED = [['friendship', 'Friendship', '50+'], ['romance', 'Romance', '50+'], ['none', 'Nothing', 'needed']];
+    // A number the player can step up and down, built from the same chips as the rows above: a minus chip, a hatched
+    // value chip (name on top, the number below) and a plus chip. 0 reads as "not needed".
+    function stepRow(host, key, label) {
+        if (host.children.length !== 3) {
+            host.innerHTML = '';
+            var side = function (txt, delta) {
+                var d = document.createElement('div');
+                d.style.cssText = sc('flex:0 0 76px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;');
+                d.innerHTML = '<div style="font-size:' + pxv(30) + 'px;font-weight:700;line-height:' + pxv(34) + 'px;">' + txt + '</div>';
+                d.addEventListener('click', function () { change(function () { cfg[key] = Math.max(0, Math.min(100, cfg[key] + delta)); }); });
+                return d;
+            };
+            var mid = document.createElement('div');
+            mid.style.cssText = sc('flex:1 1 0px;min-width:0px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;margin:0 10px;');
+            host.appendChild(side('&minus;', -REQ_STEP));
+            host.appendChild(mid);
+            host.appendChild(side('+', REQ_STEP));
+        }
+        var v = cfg[key], dn = host.children[0], mid2 = host.children[1], up = host.children[2];
+        mid2.className = 'ssp-hatch';
+        mid2.style.boxShadow = sc('3px 3px 0 ') + RED;
+        mid2.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + label + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + (v > 0 ? v + '+' : 'not needed') + '</div>';
+        [[dn, v <= 0], [up, v >= 100]].forEach(function (p) {
+            p[0].className = 'ssp-click ssp-opt';
+            p[0].style.background = '#ffffff';
+            p[0].style.boxShadow = sc('3px 3px 0 ') + NAVY;
+            p[0].style.opacity = p[1] ? '0.4' : '1';
+        });
+    }
     function optRow(host, key, opts) {
         if (host.children.length !== opts.length) {
             host.innerHTML = '';
@@ -567,6 +673,69 @@
         return 'Expecting';
     }
     function isExpecting(st) { return !!st && st !== 'None'; }
+    // Trimester chips. A click saves a request that B1/Main.lua picks up and passes to each expecting Zoi, whose B2 script
+    // moves the pregnancy forward with the game's own state call (the game has no way back).
+    var STAGES = [['1st', 'early', 'PregnancyEarly'], ['2nd', 'middle', 'PregnancyMid'], ['3rd', 'late', 'PregnancyLate']];
+    function stageRank(st) {
+        if (!st || st === 'None') return -1;
+        if (st === 'PregnancyTest') return 0;
+        if (st.indexOf('Early') >= 0) return 1;
+        if (st.indexOf('Mid') >= 0) return 2;
+        if (st.indexOf('Late') >= 0) return 3;
+        if (st.indexOf('Imminent') >= 0) return 4;
+        return 1;
+    }
+    function expectingNow() {
+        var same = ctx.selfId !== null && ctx.selfId === ctx.targetId, out = [];
+        if (isExpecting(ctx.youState)) out.push({ id: ctx.selfId, name: ctx.you ? ctx.you.name : 'Partner 1', st: ctx.youState });
+        if (!same && isExpecting(ctx.tgtState)) out.push({ id: ctx.targetId, name: ctx.target ? ctx.target.name : 'Partner 2', st: ctx.tgtState });
+        return out;
+    }
+    function renderStage() {
+        var host = el.stageHost;
+        if (!host) return;
+        if (host.children.length !== STAGES.length) {
+            host.innerHTML = '';
+            STAGES.forEach(function (g, i) {
+                var d = document.createElement('div');
+                d.style.cssText = sc('flex:1 1 0px;min-width:0px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;' + (i < STAGES.length - 1 ? 'margin-right:10px;' : ''));
+                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + g[0] + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + g[1] + '</div>';
+                d.addEventListener('click', function () { setStage(i); });
+                host.appendChild(d);
+            });
+        }
+        var ranks = expectingNow().map(function (p) { return stageRank(p.st); });
+        STAGES.forEach(function (g, i) {
+            var d = host.children[i], want = i + 1;
+            var on = ranks.length > 0 && ranks.every(function (r) { return r === want; });
+            var open = ranks.some(function (r) { return r < want; });
+            d.className = 'ssp-click' + (on ? ' ssp-hatch' : ' ssp-opt');
+            d.style.background = on ? '' : '#ffffff';
+            d.style.boxShadow = sc('3px 3px 0 ') + (on ? RED : NAVY);
+            d.style.opacity = (on || open) ? '1' : '0.4';
+        });
+    }
+    function setStage(i) {
+        if (ctx.busy) return;
+        var want = i + 1, list = expectingNow();
+        if (!list.length) { say('Nobody here is expecting yet.'); return; }
+        var go = list.filter(function (p) { return stageRank(p.st) < want; });
+        if (!go.length) {
+            say(list.every(function (p) { return stageRank(p.st) === want; }) ? 'Already there.' : 'It only goes forward. Remove the pregnancy and start again to see an earlier stage.');
+            return;
+        }
+        var parts = [String(Date.now())];
+        go.forEach(function (p) { parts.push(p.id + ',' + STAGES[i][2]); });
+        var pr = cli('uimod.cfg_save', { mod_id: MOD, section: 'settings', key: 'stage_req', value: parts.join(';') });
+        if (pr && pr.catch) pr.catch(function () {});
+        say(go.map(function (p) { return p.name; }).join(' and ') + ' moving to the ' + STAGES[i][0] + ' trimester...');
+        setTimeout(function () {
+            refreshStates().then(function () {
+                var still = expectingNow().filter(function (p) { return stageRank(p.st) < want; });
+                say(still.length ? 'Nothing moved yet. If the game is paused, unpause it and try again.' : 'Done. Check the baby bump.');
+            });
+        }, 3500);
+    }
     function renderTools() {
         var same = ctx.selfId !== null && ctx.selfId === ctx.targetId;
         el.toolYou.textContent = ctx.you ? ctx.you.name : '...';
@@ -576,6 +745,7 @@
         var yOn = isExpecting(ctx.youState), tOn = !same && isExpecting(ctx.tgtState);
         el.delYou.style.opacity = el.remYou.style.opacity = yOn ? '1' : '0.4';
         el.delTgt.style.opacity = el.remTgt.style.opacity = tOn ? '1' : '0.4';
+        renderStage();
     }
     function readState(id) {
         if (id === null || id === undefined) return Promise.resolve(null);
@@ -907,19 +1077,26 @@
             possessBack(orig, z.id).then(function () { say('That did not work.'); ctx.busy = false; refreshVerdict(); });
         });
     }
+    // Copy = the diary plus the log the simulation side saved by itself (cfg log/ssp_last, written even while this window
+    // is closed). The page has no clipboard access, so the game's own clipboard.copy command does the copying.
     function copyDiary() {
-        var text = diaryLines.join('\n');
-        var ok = false;
-        try {
-            var ta = document.createElement('textarea');
-            ta.value = text; ta.style.cssText = 'position:fixed;left:-9999px;top:0;';
-            document.body.appendChild(ta); ta.select();
-            ok = document.execCommand('copy');
-            document.body.removeChild(ta);
-        } catch (e) {}
-        if (!ok) { try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text); ok = true; } } catch (e) {} }
-        el.copy.textContent = ok ? 'Copied!' : 'Select the text instead';
-        setTimeout(function () { if (el.copy) el.copy.textContent = 'Copy'; }, 2000);
+        var done = function (ok) {
+            if (el.copy) el.copy.textContent = ok ? 'Copied!' : "Couldn't copy";
+            setTimeout(function () { if (el.copy) el.copy.textContent = 'Copy'; }, 2000);
+        };
+        var load = cli('uimod.cfg_load', { mod_id: MOD, section: 'log', key: 'ssp_last' });
+        var saved = (load && load.then) ? load.then(function (r) {
+            var v = r && (r.value !== undefined ? r.value : (r.data && r.data.value));
+            return typeof v === 'string' ? v : '';
+        }).catch(function () { return ''; }) : Promise.resolve('');
+        saved.then(function (log) {
+            var text = diaryLines.join('\n');
+            text += (text ? '\n\n' : '') + 'Mod log (oldest first):\n' +
+                (log ? log.split(',,').join('\n') : '(nothing recorded yet)');
+            var c = cli('clipboard.copy', { Text: text });
+            if (!c || !c.then) { done(false); return; }
+            return c.then(function () { done(true); });
+        }).catch(function () { done(false); });
     }
 
     // If the game was closed mid-swap, put the genders back on the next start.
@@ -963,6 +1140,26 @@
             if (id !== null) loadZois(id, id);
         }).catch(function () {});
     }
+    // Follow the Zoi you control: when you switch Zois while the window is open, Partner 1 switches with you (if you
+    // switch to the Zoi that was Partner 2, the two cards swap). Only a real change of the controlled Zoi counts, so a
+    // Zoi picked by hand on the Cheats page stays until you switch. Not while one of the page's own actions is running
+    // (they switch Zois on purpose); the first read after the window opens only records who is controlled.
+    var followId = null;
+    function followPossessed() {
+        if (!shown || closing || ctx.busy) return;
+        cli('entity.get_possessed', {}).then(function (r) {
+            var d = parseObj(r), id = d && d.entity_id !== undefined ? Number(d.entity_id) : null;
+            if (id === null || ctx.busy) return;
+            if (followId === null) { followId = id; return; }
+            if (id === followId) return;
+            followId = id;
+            if (ctx.selfId === id) return;
+            if (ctx.selfId === null || ctx.selfId === ctx.targetId) loadZois(id, id);
+            else if (ctx.targetId === id) loadZois(id, ctx.selfId);
+            else loadZois(id, ctx.targetId);
+        }).catch(function () {});
+    }
+    setInterval(followPossessed, 2000);
     // ------------------------------------------------------------------ open from the Zoi interaction menu
     // The game shows the view only after the menu entry is clicked; the trigger callback plays the open animation
     // and loads the Zois. X fades out, then clicks the real close button (window.js hides the view).
@@ -1026,6 +1223,7 @@
             shown = true;
             wf.root.style.display = '';
             window.__uimod_rectActive = true; window.__uimod_rectForce = 1;
+            followId = null; // the pair is loaded fresh below; the next read only records who is controlled
             playOpen('trigger');
             loadFromTrigger(t);
         });

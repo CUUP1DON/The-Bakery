@@ -35,7 +35,7 @@ local CONFIG = {
         Co_TryToHaveChildren_NPC = true,    -- town NPC couples (only reachable for same-sex pairs when npcCouples is on)
     },
     arm_fallback = 90.0,                    -- seconds (real time) to wait for a bed result after the talk
-    pair_lock = 120.0,                      -- seconds to ignore further events for the same pair
+    pair_lock = 20.0,                       -- seconds to ignore further events for the same pair (one bed action fires several events within a second or two; a retry is a new attempt)
     discover = false,                        -- log baby/romance-related interaction ids
     skip_test_state = false,                -- true: call ProceedToNextPregnancyState right after Start
     poll_interval = 1.0,                    -- seconds between state checks
@@ -43,6 +43,7 @@ local CONFIG = {
     stage_wait = 8.0,                       -- seconds to wait for a start route to show a pregnancy before trying the next one (the buff is applied on the next game tick)
     swap_wait = 4.0,                        -- seconds between the gender swap and Prepare/Start: the swap only takes effect some ticks later, an earlier Start is a silent no-op (1.5 s failed intermittently live, 4+ s worked for possessed and unpossessed mothers)
     pair_memory = 900.0,                    -- seconds an armed pair (talk event) stays usable to resolve a bed event
+    fail_buff = "PregnancyTest_Failure",    -- vanilla buff: the game's own negative test (the '!' leads to a negative result at the toilet)
     test_buff = "PregnancyTest_Success",    -- vanilla buff: its add-script runs Pregnancy Start (state PregnancyTest) and shows the toilet test
     failsafe_timeout = 0,                   -- >0: still in PregnancyTest after this many seconds -> advance the state once. 0 = never (a pregnancy is only confirmed by the test)
     allow_cli_fallback = false,             -- true: after all test-flow attempts fail, use the CLI get_baby_with (cheat toast, goes straight to PregnancyEarly = NO test)
@@ -78,6 +79,7 @@ local function log(...)
     for i = 1, select("#", ...) do parts[#parts + 1] = tostring((select(i, ...))) end
     local line = os.date("%H:%M:%S") .. " " .. table.concat(parts, " ")
     print("[SameSexPregnancy]", line)
+    C.add_log(line)
 end
 
 -- ---------------------------------------------------------------- helpers
@@ -178,23 +180,27 @@ local function run_pregnancy_instruction(self_id, target_id, instruction)
 end
 
 -- Pure-Lua version of the vanilla AddBuff execute: FB2Script_Buff.Execute_AddBuff with the mother as Self.
--- (FB2BuffComponent:AddBuff / AddBuffImmediately return success but are silent no-ops from Lua - verified live;
--- the script path queues the buff, it shows up on the next game tick and its add-script then runs Pregnancy Start.)
-local function add_test_buff(mother_id, partner_id)
+-- (FB2BioComponent:AddBuff / AddBuffImmediately return success but are silent no-ops from Lua - verified live;
+-- the script path queues the buff, it shows up on the next game tick.)
+local function add_buff(mother_id, partner_id, buff_id)
     local ok, err = pcall(function()
         local ctx = inzoi.FB2ScriptContext(make_id(mother_id), make_id(partner_id), inzoi.EB1ScriptReason.Talk)
         local ex = inzoi.FB1Execute()
         ex.BaseObject = inzoi.EB1BaseObject.Self
         ex.Command = inzoi.EB1ExecuteType.AddBuff
-        ex.S1 = CONFIG.test_buff
+        ex.S1 = buff_id
         ex.S2 = "None"
         ex.F1 = 0
         ex.F2 = 0
         ex.Prob = 1
         inzoi.FB2Script_Buff.Execute_AddBuff(ctx, ex)
     end)
-    log("Execute_AddBuff " .. CONFIG.test_buff, ok, err)
+    log("Execute_AddBuff " .. buff_id, ok, err)
     return ok
+end
+
+local function add_test_buff(mother_id, partner_id)
+    return add_buff(mother_id, partner_id, CONFIG.test_buff)
 end
 
 local function has_test_buff(mother_id)
@@ -260,6 +266,14 @@ local function start_pregnancy(self, mother, partner)
     if not family_ok(mbio) then
         log("family/household limit reached, skipping", mother)
         return false
+    end
+
+    if math.random() * 100 < C.cfg.fail then
+        -- The game's own negative test: the failure buff gives the carrier the '!' and a negative result at the toilet.
+        -- Nothing is started, so no gender swap and nothing to restore.
+        local ok = add_buff(mother, partner, CONFIG.fail_buff)
+        log("negative test (chance " .. tostring(C.cfg.fail) .. "%): gave " .. CONFIG.fail_buff .. " to", mother, tostring(ok))
+        return ok
     end
 
     local orig_m, orig_p = get_gender(mbio), get_gender(pbio)
@@ -391,6 +405,18 @@ local function looks_baby_related(name)
         or string.find(l, "kiss", 1, true) or string.find(l, "sex", 1, true)
 end
 
+-- A Zoi that talks about a baby with someone new has moved on from any earlier pair, and a pair that just had its bed
+-- result is done: drop the waiting talks that involve those Zois, so the old talk's fallback timer cannot start a
+-- phantom attempt that then blocks the real one (the three-Zoi mix-up seen live: the abandoned talk fired first).
+local function drop_armed(self, id1, id2, keep_key)
+    for k, arm in pairs(self.armed) do
+        if k ~= keep_key and (arm.a == id1 or arm.b == id1 or arm.a == id2 or arm.b == id2) then
+            self.armed[k] = nil
+            log("dropped an older waiting talk (" .. k .. "): a Zoi moved on to someone else")
+        end
+    end
+end
+
 -- An attempt for this pair ended (bed result, or the talk's fallback timer). Decide and start.
 local function is_npc_pair(a, b)
     local ok, r = pcall(function() return inzoi.entity.is_npc(a) and inzoi.entity.is_npc(b) end)
@@ -408,11 +434,19 @@ local function handle_attempt(self, a, b)
     if not attempt_allowed(a, b) then return end
     local key = math.min(a, b) .. ":" .. math.max(a, b)
     local now = os.clock()
-    if self.locked[key] and now - self.locked[key] < CONFIG.pair_lock then return end
+    if self.locked[key] and now - self.locked[key] < CONFIG.pair_lock then
+        log("ignored: this pair was handled " .. math.floor(now - self.locked[key]) .. " s ago")
+        return
+    end
     self.locked[key] = now -- double-fire guard: both participants' events + talk and bed events land here
     self.armed[key] = nil
+    drop_armed(self, a, b, key)
 
-    if a == b or involved(self, a) or involved(self, b) then return end
+    if a == b then return end
+    if involved(self, a) or involved(self, b) then
+        log("ignored: a swap or pregnancy start is still in progress for this pair")
+        return
+    end
     local ba, bb = find_bio(a), find_bio(b)
     if not ba or not bb then return end
     local ga, gb = get_gender(ba), get_gender(bb)
@@ -498,6 +532,7 @@ local function on_interaction_finished(self, a, b, c)
     local fire, arm = CONFIG.fire_bags[name], CONFIG.arm_bags[name]
     if not fire and not arm then return end
     if type(entity_id) ~= "number" or type(target_id) ~= "number" then return end
+    log("saw " .. (arm and "talk " or "bed result ") .. name, "by", entity_id, "target", target_id)
 
     if arm then
         if target_id < 0 or entity_id == target_id then return end
@@ -507,6 +542,7 @@ local function on_interaction_finished(self, a, b, c)
         self.pairs[entity_id] = { other = target_id, t = now }
         self.pairs[target_id] = { other = entity_id, t = now }
         local key = math.min(entity_id, target_id) .. ":" .. math.max(entity_id, target_id)
+        drop_armed(self, entity_id, target_id, key)
         if not self.armed[key] and not (self.locked[key] and now - self.locked[key] < CONFIG.pair_lock) then
             self.armed[key] = { t = now, a = entity_id, b = target_id }
         end
@@ -645,7 +681,8 @@ function M.on_begin(self, manager)
     self.hd_h_cancel = inzoi.event.on("zoi.pregnancy_cancel", self.h_cancel)
     self.hd_h_begin = inzoi.event.on("zoi.pregnancy_begin", self.h_begin)
     self.hd_h_born = inzoi.event.on("zoi.born", self.h_born)
-    log("loaded")
+    log("loaded; settings: allowMM", tostring(C.cfg.allowMM), "allowFF", tostring(C.cfg.allowFF), "mode", C.cfg.mode,
+        "both", tostring(C.cfg.both), "auto", tostring(C.cfg.auto), "npc", tostring(C.cfg.npc), "seen", tostring(C.cfg_seen))
 end
 
 ---@param self table
@@ -665,6 +702,7 @@ function M.on_tick(self, manager, dt)
     end
     if now - self.last_poll < CONFIG.poll_interval then return end
     self.last_poll = now
+    C.flush_log()
     process_recovery(self)
     process_mixed(self, now)
 
@@ -702,6 +740,9 @@ function M.on_tick(self, manager, dt)
             local pregnant = mbio ~= nil and is_pregnant(mbio)
             local state = mbio and pregnancy_state(mbio) or ""
             local active = pregnant or state ~= ""
+            -- The "!" is the test buff itself: the pregnancy state only moves once the player takes the test, which
+            -- can be much later. While the buff is on the mod waits; it must not retry or remove it.
+            local buffed = (not active) and p.stage ~= 0 and has_test_buff(mother)
 
             if p.stage == 0 then
                 -- the swap is queued; Prepare/Start/buff must wait until it has taken effect
@@ -718,7 +759,7 @@ function M.on_tick(self, manager, dt)
                     end
                 end
 
-                if not active and p.retry_at and now >= p.retry_at then
+                if not active and not buffed and p.retry_at and now >= p.retry_at then
                     p.retry_at = nil
                     run_test_flow(self, mother, p, p.stage >= 1 + CONFIG.route1_retries)
                 end
@@ -738,6 +779,47 @@ function M.on_tick(self, manager, dt)
                     if not p.logged_active then
                         p.logged_active = true
                         log("pregnancy active, state:", state == "" and "?" or state, "route:", tostring(p.route))
+                    end
+                elseif buffed then
+                    p.buff_seen = true
+                    p.buff_gone = nil
+                    if not p.logged_wait then
+                        p.logged_wait = true
+                        log("test buff is on; waiting for the player to take the pregnancy test", mother)
+                    end
+                    -- The buff's add-script is meant to run Pregnancy Start, but live it often does nothing (the state
+                    -- stays None under the "!"). Run Start ourselves once the buff has had a few seconds, in case it
+                    -- takes; if it does not, the pregnancy is started when the test is taken (see below).
+                    p.buff_t = p.buff_t or now
+                    local since = now - p.buff_t
+                    if not p.start_forced and since >= 4.0 then
+                        p.start_forced = true
+                        local female, male = inzoi.EB1GenderType.Female, inzoi.EB1GenderType.Male
+                        local pb = find_bio(p.partner)
+                        if mbio and get_gender(mbio) ~= female then set_gender(mbio, female) end
+                        if pb and get_gender(pb) ~= male then set_gender(pb, male) end
+                        log("state is still None with the test buff on; running Pregnancy Start", mbio and diag(mother, mbio) or "")
+                        run_pregnancy_instruction(mother, p.partner, "Start")
+                    end
+                elseif p.buff_seen then
+                    -- The test buff ends when the player takes the test. The game's own Start never produced a state for a
+                    -- same-gender pair in live tests (the "!" is only the buff), so the test is the reveal and the pregnancy
+                    -- is started now with the game's pregnancy command while the swap is still in place. That command
+                    -- shows the cheat toast; it is cleared around the call. Anything in the state within 2 s of the test
+                    -- ending is left alone (the game started it itself).
+                    p.buff_gone = p.buff_gone or now
+                    if not p.reveal_done and now - p.buff_gone >= 2.0 then
+                        p.reveal_done = true
+                        M.toast_guard(self, { mother, p.partner })
+                        local ok, msg = inzoi.cli.execute(
+                            "pregnancy_and_birth.get_baby_with entity_id=" .. tostring(mother) .. " partner_id=" .. tostring(p.partner))
+                        M.toast_guard(self, { mother, p.partner })
+                        p.route = "pregnancy command after the test"
+                        log("test taken; started the pregnancy with the game's command", tostring(ok), tostring(msg))
+                        if not ok then restore(self, mother, "pregnancy command failed") end
+                    elseif p.reveal_done and now - p.buff_gone > 20 then
+                        log("no pregnancy appeared after the test; restoring genders", mother)
+                        restore(self, mother, "no pregnancy after the test")
                     end
                 elseif mbio and p.last_try then
                     local waited = now - p.last_try

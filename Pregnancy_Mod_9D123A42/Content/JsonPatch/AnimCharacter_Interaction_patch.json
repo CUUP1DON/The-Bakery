@@ -1,0 +1,49 @@
+{
+	"Struct": "AnimCharacter",
+	"BaseVersion": "20261011.16078.W.MODKIT.EGS",
+	"SaveVersion": "20261011.16078.W.MODKIT.EGS",
+	"PatchList": [
+		{
+			"Method": "Override",
+			"Query": "AnimCharacter_Interaction[Id=Mirror_Pregnancy_Check]",
+			"Value": {
+				"attachMeshInfos": [],
+				"playingComponentName": "Root",
+				"stopOtherComponentOnFinish": false,
+				"startAnimSection": "Default",
+				"characterAnimConfigList": [
+					{
+						"animPostureId": [
+							"Stand"
+						],
+						"animBodyParts": "BothHands",
+						"animGrabParts": "None",
+						"animSlotDirection": "None",
+						"animInfoList": [
+							{
+								"gender": "Female",
+								"animGrowthStep": "Adult",
+								"animation": "/Game/Characters/Anims/Interaction/Female/ANIM_F_Pregnancy_Mirror_Interaction_Montage.ANIM_F_Pregnancy_Mirror_Interaction_Montage",
+								"totalPlayLength": 11.666666984558105,
+								"loopPlayLength": 0,
+								"rateScale": 1,
+								"randomLoopAnims": []
+							},
+							{
+								"gender": "Male",
+								"animGrowthStep": "Adult",
+								"animation": "/Game/Characters/Anims/Interaction/Female/ANIM_F_Pregnancy_Mirror_Interaction_Montage.ANIM_F_Pregnancy_Mirror_Interaction_Montage",
+								"totalPlayLength": 11.666666984558105,
+								"loopPlayLength": 0,
+								"rateScale": 1,
+								"randomLoopAnims": []
+							}
+						]
+					}
+				],
+				"id": "Mirror_Pregnancy_Check"
+			},
+			"Enabled": true
+		}
+	]
+}

@@ -139,6 +139,3 @@ Pregnancy_Mod_9D123A42/
 EXPLANATION.md        why the vanilla trick fails and what this mod does
 ```
 This folder is a ModKit project. To build it, place `Pregnancy_Mod_9D123A42` in the ModKit's `Mods` folder, open it in the inZOI ModKit and package it from there. The packaged output is what players install.
-
-## Author
-cuupidon

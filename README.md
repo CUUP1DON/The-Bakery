@@ -54,8 +54,8 @@ This mod adds the full inZOI pregnancy experience for same-sex couples: the preg
 | Who carries the baby | Random, My Zoi (the Zoi you're playing), or Their partner. |
 | Both partners expecting? | The chance that both partners become pregnant at once: Never, Rare 10%, Sometimes 25%, Often 50% or Always. |
 | Man can carry (M+F) | Off (default) or On: lets the man in a male + female couple be pregnant too, using the both partners chance. |
-| Pregnancy tests | The chance a test comes back negative: Never (default), Rare 10%, Sometimes 25%, Often 50% or Always. |
-| Set the Mood | The chance that Set the Mood leads to a pregnancy test: Never, Rare 10%, Low 20% (default), Often 50% or Always. |
+| Negative test chance | The chance a test comes back negative: Never (default), Rare 10%, Sometimes 25%, Often 50% or Always. |
+| Set the Mood pregnancy chance | The chance that Set the Mood leads to a pregnancy test: Never, Rare 10%, Low 20% (default), Often 50% or Always. |
 | Birth scene for male carriers | Skip it (default): the baby just arrives. Play it: the game's birth scene plays, with an empty bed. |
 
 **Romance page**
@@ -70,7 +70,7 @@ This mod adds the full inZOI pregnancy experience for same-sex couples: the preg
 | Unmarried couples: Romance | How much Romance they need on top of that. Default 0 (not needed). |
 | Married couples: Family bond | What a married couple needs. Default 10, the same as the base game. |
 | Pregnancy chats: Friendship | How close friends must be to check in on a pregnancy and talk about the baby. Default 30, the same as the base game. |
-| Set the Mood: Friendship / Romance | What Zois who aren't dating or engaged need before they are offered Set the Mood. Default Friendship 0 and Romance 30, the same as the base game. |
+| Set the Mood requirements: Friendship / Romance | What Zois who aren't dating or engaged need before they are offered Set the Mood. Default Friendship 0 and Romance 30, the same as the base game. |
 
 **Cheats page**
 | Setting | What it does |
@@ -107,7 +107,7 @@ The longer version is in [EXPLANATION.md](EXPLANATION.md). It covers why a pregn
 
 ## How To Install
 1. Close inZOI completely.
-2. Download **The_Bakery_v1.0.3.zip** from the Releases page here or the Files tab on Nexus.
+2. Download **The_Bakery_v1.0.4.zip** from the Releases page here or the Files tab on Nexus.
 3. Open the zip. Inside is one folder named **Pregnancy_Mod_9D123A42**.
 4. Copy that whole folder into your inZOI Mods folder: `Documents/inZOI/Mods` (usually `C:/Users/YourName/Documents/inZOI/Mods`).
 5. Start the game and load your save. The mod's scripts and data only load at startup, so a full restart is needed the first time and after every update.
@@ -122,10 +122,18 @@ The longer version is in [EXPLANATION.md](EXPLANATION.md). It covers why a pregn
 ## Troubleshooting
 - **No "!" prompt after the bed action:** make sure the pair is allowed in the settings, both are young adult or older, aren't related, and neither is already pregnant.
 - **Nothing happened after trying for a baby:** each pair has a short wait (about 20 seconds) between attempts, and the Diary says when an attempt was ignored.
-- **The test comes back negative and there is no baby:** check the "Pregnancy tests" chance, and check that your household isn't full (8 members).
+- **The test comes back negative and there is no baby:** check the "Negative test chance", and check that your household isn't full (8 members).
 - **The settings window won't open:** click your own Zoi's menu entry, not another Zoi's.
 - **A requirement change doesn't seem to apply:** give it a few seconds. The numbers are applied from a script that checks every few seconds.
 - Still stuck? Click the Diary's **Copy** button. It copies what the mod tried, and you can paste it into a bug report.
+
+---
+
+## Changes in v1.0.4
+
+- Clearer setting names: "Negative test chance", "Set the Mood pregnancy chance" and "Set the Mood requirements".
+- A short line under the Household Autonomy and Town Autonomy tiles.
+- Clearer wording on the Man can carry hint and the Cheats page.
 
 ---
 

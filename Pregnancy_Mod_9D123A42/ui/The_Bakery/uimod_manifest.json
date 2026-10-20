@@ -1,18 +1,19 @@
-{
-	"name": "The Bakery",
-	"entry": "index.html",
-	"display": {
-		"width": 1920,
-		"height": 1080,
-		"transparent": true,
-		"input_policy": "overlay"
-	},
-	"triggers": [
-		{
-			"id": "menu_0",
-			"type": "interaction_menu",
-			"target": "character",
-			"label_key": "The Bakery Settings"
-		}
-	]
+﻿{
+  "display": {
+    "width": 1920,
+    "height": 1080,
+    "transparent": true,
+    "input_policy": "overlay"
+  },
+  "encoded": true,
+  "entry": "index.html",
+  "name": "The Bakery",
+  "triggers": [
+    {
+      "id": "menu_0",
+      "type": "interaction_menu",
+      "target": "character",
+      "label_key": "The Bakery Settings"
+    }
+  ]
 }

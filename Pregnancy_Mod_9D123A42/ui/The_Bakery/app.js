@@ -14,13 +14,232 @@
  */
 (function () {
     'use strict';
+    /*I18N-EN-BEGIN*/
+    var EN_TEXT = {
+        "title.name": "The Bakery",
+        "title.settings": "SETTINGS",
+        "tip.smaller": "Smaller window",
+        "tip.bigger": "Bigger window",
+        "tile.mm": "Male + male",
+        "tile.ff": "Female + female",
+        "tile.household": "Household Autonomy",
+        "tile.town": "Town Autonomy",
+        "tag.allowed": "ALLOWED",
+        "tag.on": "ON",
+        "tag.off": "OFF",
+        "sec.pre": "Pregnancy",
+        "sec.pre.sub": "Who carries, both partners, tests, birth scene",
+        "sec.rom": "Romance",
+        "sec.rom.sub": "Zois can fall in love with their own gender",
+        "sec.req": "Requirements",
+        "sec.req.sub": "Unmarried, married, pregnancy chats",
+        "sec.cheat": "Cheats",
+        "sec.cheat.sub": "Start a test, deliver a baby, remove a pregnancy",
+        "pre.carry": "Who carries the baby?",
+        "pre.carry.hint": "My Zoi is whichever Zoi you are playing at the time.",
+        "opt.random": "Random",
+        "opt.myzoi": "My Zoi",
+        "opt.partner": "Their partner",
+        "pre.both": "Both partners expecting?",
+        "pre.both.hint": "Chance that BOTH partners become pregnant at once. Never = only one does.",
+        "pre.man": "Man can carry (M+F)",
+        "pre.man.hint": "Lets the man in a male + female couple be pregnant too, using the both partners chance.",
+        "pre.tests": "Pregnancy tests",
+        "pre.tests.hint": "Chance a test comes back negative. Never = always positive.",
+        "mood.head": "Set the Mood",
+        "pre.mood.hint": "Chance that Set the Mood leads to a pregnancy test. Never = it never does.",
+        "pre.birth": "Birth scene for male carriers",
+        "pre.birth.hint": "The game's birth scene only has a woman in it, so the bed is empty for a man.",
+        "opt.skip": "Skip it",
+        "opt.skip.sub": "baby just arrives",
+        "opt.play": "Play it",
+        "opt.play.sub": "empty bed",
+        "opt.on": "On",
+        "opt.off": "Off",
+        "ch.never": "Never",
+        "ch.rare": "Rare",
+        "ch.sometimes": "Sometimes",
+        "ch.low": "Low",
+        "ch.often": "Often",
+        "ch.always": "Always",
+        "rom.ss": "Same-Sex Romance",
+        "rom.ss.hint": "Zois can fall in love with their own gender too. Off puts them back as they were.",
+        "req.unmarried": "Unmarried couples",
+        "req.hint.baby": "What they need before they can try for a baby. 0 = not needed.",
+        "req.married": "Married couples",
+        "req.chats": "Pregnancy chats",
+        "req.chats.hint": "How close friends must be to check in on a pregnancy and talk about the baby. 0 = not needed.",
+        "req.mood.hint": "What Zois who are not dating or engaged need before they are offered Set the Mood. 0 = not needed.",
+        "word.friendship": "Friendship",
+        "word.romance": "Romance",
+        "word.family": "Family bond",
+        "word.notneeded": "not needed",
+        "word.and": " and ",
+        "word.partner1": "Partner 1",
+        "word.partner2": "Partner 2",
+        "cheat.p1": "PARTNER 1",
+        "cheat.p2": "PARTNER 2",
+        "cheat.deliver": "Deliver baby",
+        "cheat.remove": "Remove pregnancy",
+        "cheat.confirm": "Tap again to confirm",
+        "cheat.go": "Try for a baby!",
+        "pick.choose": "Choose a Zoi",
+        "pick.p1": "Choose Partner 1",
+        "pick.p2": "Choose Partner 2",
+        "pick.all": "Show everyone in town",
+        "pick.household": "Show my household only",
+        "pick.loading": "Loading...",
+        "tri.head": "Trimester",
+        "tri.hint": "Move whoever is expecting forward to check the baby bump. It only goes forward.",
+        "tri.1st": "1st",
+        "tri.early": "early",
+        "tri.2nd": "2nd",
+        "tri.middle": "middle",
+        "tri.3rd": "3rd",
+        "tri.late": "late",
+        "diary.head": "Diary",
+        "diary.copy": "Copy",
+        "diary.copied": "Copied!",
+        "diary.copyfail": "Couldn't copy",
+        "diary.logtitle": "Mod log (oldest first):",
+        "diary.nolog": "(nothing recorded yet)",
+        "diary.ready": "Ready when you are.",
+        "pair.choose": "Choose someone",
+        "pair.tap": "tap here",
+        "state.none": "Not expecting",
+        "state.test": "Just found out",
+        "state.early": "Early pregnancy",
+        "state.mid": "Mid pregnancy",
+        "state.late": "Late pregnancy",
+        "state.imminent": "Baby is coming!",
+        "state.other": "Expecting",
+        "gender.male": "Male",
+        "gender.female": "Female",
+        "age.youth": "Young Adult",
+        "age.adult": "Adult",
+        "age.old": "Older Adult",
+        "age.elder": "Elder",
+        "check.wait": "Just a moment...",
+        "check.pickp2": "Tap the Partner 2 card to pick who to try with.",
+        "check.adults": "Both need to be young adults or older.",
+        "check.mf": "A man and a woman? The normal game handles that.",
+        "check.mmoff": "Male + male is switched off below.",
+        "check.ffoff": "Female + female is switched off below.",
+        "check.ok": "{a} and {b} can try for a baby!",
+        "say.noexpect": "Nobody here is expecting yet.",
+        "say.already": "Already there.",
+        "say.forward": "It only goes forward. Remove the pregnancy and start again to see an earlier stage.",
+        "say.moving": "{names} moving to the {stage} trimester...",
+        "say.nomove": "Nothing moved yet. If the game is paused, unpause it and try again.",
+        "say.done": "Done. Check the baby bump.",
+        "say.isexpecting": "{name} is already expecting.",
+        "say.carry": "{name} is going to carry the baby...",
+        "say.nowork": "It did not work this time. Try again!",
+        "say.success": "Success! {name} is expecting.",
+        "say.bothyes": "And {name} is expecting too!",
+        "say.bothno": "{name} could not join in this time.",
+        "say.wrong": "Something went wrong. Please try again.",
+        "say.pickp2": "Pick Partner 2 first (tap the Partner 2 card).",
+        "say.pickzoi": "Pick a Zoi first.",
+        "say.notexpecting": "{name} is not expecting.",
+        "say.delivering": "Delivering {name}'s baby...",
+        "say.noswitch": "Could not switch to {name}. Nothing was changed.",
+        "say.didnt": "That did not work.",
+        "say.delivered": "Done! The baby is on the way. You are now playing {name}.",
+        "say.nothingyet": "Nothing happened yet. If the game is paused, unpause it and try again.",
+        "say.cleaning": "Cleaning up {name}'s pregnancy...",
+        "say.stillexp": "That did not work. {name} is still expecting.",
+        "say.removed": "{name}'s pregnancy was removed and cleaned up. The baby bump may take a moment to go down. (The game keeps its small 'first pregnancy' milestone note and cannot erase it.)",
+        "say.genders": "Could not put the genders back just now. It will be tried again next time.",
+        "say.nopreg": "No pregnancy appeared.",
+    };
+    window.SSP_LANGS = window.SSP_LANGS || {};
+    window.SSP_LANGS.en = EN_TEXT;
+    /*I18N-EN-END*/
 
     var content = wf.content;
     var MOD = wf.MOD_ID;
 
     // ------------------------------------------------------------------ settings
-    var DEFAULTS = { allowMM: true, allowFF: true, motherMode: 'random', bothChance: 0, reqFriend: 50, reqRomance: 0, reqMarried: 10, reqChat: 30, testFail: 0, birthCutscene: 'skip', npcCouples: 'off', autonomy: true, scale: 0.6 };
+    var DEFAULTS = { allowMM: true, allowFF: true, motherMode: 'random', bothChance: 0, reqFriend: 50, reqRomance: 0, reqMarried: 10, reqChat: 30, testFail: 0, moodChance: 20, moodReqF: 0, moodReqR: 30, mfMan: 'off', sameSex: 'on', birthCutscene: 'skip', npcCouples: 'off', autonomy: true, language: '', scale: 0.6 };
     var cfg = JSON.parse(JSON.stringify(DEFAULTS));
+
+    // ------------------------------------------------------------------ text (translations)
+    // All window text lives in lang/<code>.js (English is lang/en.js; see the notes at the top of that file). t(key, {name: ...})
+    // looks a key up in the player's language and falls back to English, then to the key itself. tH() is the same text made
+    // safe to put into innerHTML.
+    var LANG = 'en';
+    function t(key, v) {
+        var all = window.SSP_LANGS || {}, cur = all[LANG], en = all.en;
+        var s = (cur && cur[key] !== undefined) ? cur[key] : ((en && en[key] !== undefined) ? en[key] : key);
+        if (v) s = String(s).replace(/\{(\w+)\}/g, function (m, k) { return v[k] !== undefined ? v[k] : m; });
+        return s;
+    }
+    function tH(key, v) { return esc(t(key, v)); }
+
+    // The game's language setting -> the language files to try, best first (ja-JP, then ja).
+    var LANG_NAMES = { english: 'en', korean: 'ko-KR', japanese: 'ja-JP', french: 'fr-FR', german: 'de-DE', spanish: 'es-ES', russian: 'ru-RU', portuguese: 'pt-BR', italian: 'it-IT', turkish: 'tr-TR', polish: 'pl-PL', thai: 'th-TH', vietnamese: 'vi-VN', indonesian: 'id-ID' };
+    function langCandidates(code) {
+        var out = [], c = String(code || '').trim();
+        if (LANG_NAMES[c.toLowerCase()]) c = LANG_NAMES[c.toLowerCase()];
+        c = c.replace(/[^A-Za-z0-9_-]/g, '');
+        if (!c || /^en([-_]|$)/i.test(c)) return out;
+        out.push(c);
+        var base = c.split(/[-_]/)[0];
+        if (base && base !== c) out.push(base);
+        return out;
+    }
+    function loadLangFile(code) {
+        return new Promise(function (resolve) {
+            if ((window.SSP_LANGS || {})[code]) { resolve(true); return; }
+            var done = false, tag = document.createElement('script');
+            var finish = function (ok) { if (done) return; done = true; resolve(!!ok && !!(window.SSP_LANGS || {})[code]); };
+            tag.onload = function () { finish(true); };
+            tag.onerror = function () { finish(false); };
+            setTimeout(function () { finish(false); }, 2500);
+            tag.src = 'lang/' + code + '.js';
+            document.head.appendChild(tag);
+        });
+    }
+    // cfg.language (an override set by hand in the saved settings) first, then the game's own language setting
+    function detectLanguage() {
+        var forced = String(cfg.language || '').trim();
+        if (forced) return Promise.resolve(forced);
+        var p;
+        try { p = cli('gameplay.get_settings', {}); } catch (e) { return Promise.resolve(''); }
+        if (!p || !p.then) return Promise.resolve('');
+        return p.then(function (r) {
+            var d = parseObj(r), v = d && (d.language || d.Language || (d.settings && d.settings.language));
+            if (!v) { var m = JSON.stringify(d || {}).match(/"language[^"]*":"([^"]+)"/i); v = m && m[1]; }
+            return v ? String(v) : '';
+        }).catch(function () { return ''; });
+    }
+    // Picks and loads the language file; the window is rebuilt by the caller. Any problem leaves English in place.
+    function withTimeout(p, ms, fallback) {
+        return new Promise(function (resolve) {
+            var done = false;
+            var finish = function (v) { if (!done) { done = true; resolve(v); } };
+            setTimeout(function () { finish(fallback); }, ms);
+            try { Promise.resolve(p).then(finish, function () { finish(fallback); }); } catch (e) { finish(fallback); }
+        });
+    }
+    function applyLanguage() {
+        return withTimeout(applyLanguageInner(), 4000, false);
+    }
+    function applyLanguageInner() {
+        return detectLanguage().then(function (code) {
+            var list = langCandidates(code), i = 0;
+            var next = function () {
+                if (i >= list.length) return Promise.resolve(false);
+                var c = list[i++];
+                return loadLangFile(c).then(function (ok) { if (ok) { LANG = c; return true; } return next(); });
+            };
+            return next().then(function (ok) {
+                log('language: game says "' + code + '", window text is "' + LANG + '"' + (ok ? '' : ' (English)') + ', English keys: ' + Object.keys((window.SSP_LANGS || {}).en || {}).length);
+                return ok;
+            });
+        }).catch(function () { return false; });
+    }
     var AUTONOMY_BAGS = ['Co_TryToHaveChildren', 'Co_TryToHaveChildren_NoSpouse']; // vanilla autonomy weight is 10
     var VANILLA_WEIGHT = 10;
     var MIN_SCALE = 0.5, MAX_SCALE = 1.0;
@@ -71,6 +290,10 @@
                 }
                 cfg.reqFriend = snapReq(cfg.reqFriend, 50); cfg.reqRomance = snapReq(cfg.reqRomance, 0); cfg.reqMarried = snapReq(cfg.reqMarried, 10); cfg.reqChat = snapReq(cfg.reqChat, 30);
                 cfg.testFail = snapChance(cfg.testFail);
+                cfg.moodChance = snapChance(cfg.moodChance, MOOD_CHANCES);
+                cfg.moodReqF = snapReq(cfg.moodReqF, 0); cfg.moodReqR = snapReq(cfg.moodReqR, 30);
+                if (cfg.mfMan !== 'on' && cfg.mfMan !== 'off') cfg.mfMan = 'off';
+                if (cfg.sameSex !== 'on' && cfg.sameSex !== 'off') cfg.sameSex = 'on';
                 if (cfg.birthCutscene !== 'play' && cfg.birthCutscene !== 'skip') cfg.birthCutscene = 'skip';
                 if (cfg.npcCouples !== 'on' && cfg.npcCouples !== 'off') cfg.npcCouples = 'off';
             }
@@ -79,10 +302,11 @@
 
     var REQ_STEP = 5;
     function snapReq(v, d) { v = Math.round(Number(v)); if (!(v >= 0)) return d; return Math.min(100, v); }
-    var CHANCES = [[0, 'Never'], [10, 'Rare'], [25, 'Sometimes'], [50, 'Often'], [100, 'Always']];
-    function snapChance(v) {
+    var CHANCES = [[0, 'ch.never'], [10, 'ch.rare'], [25, 'ch.sometimes'], [50, 'ch.often'], [100, 'ch.always']];
+    var MOOD_CHANCES = [[0, 'ch.never'], [10, 'ch.rare'], [20, 'ch.low'], [50, 'ch.often'], [100, 'ch.always']];
+    function snapChance(v, list) {
         var best = 0, d = 1e9;
-        CHANCES.forEach(function (c) { var x = Math.abs(c[0] - (v || 0)); if (x < d) { d = x; best = c[0]; } });
+        (list || CHANCES).forEach(function (c) { var x = Math.abs(c[0] - (v || 0)); if (x < d) { d = x; best = c[0]; } });
         return best;
     }
 
@@ -128,7 +352,7 @@
             '#close-btn{transform:rotate(2deg);padding:3px 14px 5px 14px !important;}',
             '.ssp-tbtn:hover{background:' + BLUE + ' !important;}',
             '#close-btn:hover{background:' + RED + ' !important;color:#fff !important;}',
-            '#content{padding:16px 24px 22px 24px !important;background:transparent !important;color:' + NAVY + ' !important;font-size:22px !important;overflow:visible !important;}',
+            '#content{padding:16px 24px 22px 24px !important;background:transparent !important;color:' + NAVY + ' !important;font-size:22px !important;overflow-x:hidden !important;overflow-y:auto !important;}',
             '.ssp-row{display:flex;flex-direction:row;}',
             '.ssp-card{background:' + CARD + ';border:2.5px solid ' + NAVY + ';border-radius:7px;box-shadow:4px 4px 0 ' + NAVY + ';}',
             '.ssp-hatch{background-color:' + BLUE + ';background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.75) 0px,rgba(255,255,255,0.75) 3px,rgba(255,255,255,0) 3px,rgba(255,255,255,0) 9px);}',
@@ -141,7 +365,7 @@
             '.ssp-pick:hover{background:' + BLUE + ';}',
             '.ssp-card,.ssp-click,.ssp-tbtn,.ssp-tbtn2,.ssp-tool,#close-btn{transition:background-color 0.18s ease,box-shadow 0.18s ease,transform 0.18s ease,opacity 0.22s ease,border-color 0.18s ease,color 0.18s ease;}',
             '.ssp-click:active,.ssp-tbtn:active,.ssp-tool:active{transform:translate(2px,2px);}',
-            '#ssp-pageSettings,#ssp-pageCheats,#ssp-pageReq,#ssp-pagePre{transition:opacity 0.2s ease;}',
+            '#ssp-pageSettings,#ssp-pageCheats,#ssp-pageReq,#ssp-pagePre,#ssp-pageRom{transition:opacity 0.2s ease;}',
             '#hide-btn{display:none !important;}',
             '#ssp-picker{transition:opacity 0.2s ease;}',
             '.ssp-opt:hover{background:' + BLUE + ' !important;}',
@@ -180,17 +404,19 @@
     var head = document.createElement('div');
     head.style.cssText = 'display:flex;flex-direction:row;align-items:center;flex-grow:1;';
     tb.insertBefore(head, tb.firstChild);
-    var bSmaller = document.createElement('div'); bSmaller.className = 'ssp-tbtn'; bSmaller.textContent = 'A-'; bSmaller.title = 'Smaller window';
-    var bBigger = document.createElement('div'); bBigger.className = 'ssp-tbtn'; bBigger.textContent = 'A+'; bBigger.title = 'Bigger window';
+    var bSmaller = document.createElement('div'); bSmaller.className = 'ssp-tbtn'; bSmaller.textContent = 'A-';
+    var bBigger = document.createElement('div'); bBigger.className = 'ssp-tbtn'; bBigger.textContent = 'A+';
     tbtns.insertBefore(bSmaller, closeBtn); tbtns.insertBefore(bBigger, closeBtn);
 
     function $(id) { return document.getElementById(id); }
     var el = {};
 
     // ------------------------------------------------------------------ state
-    var ctx = { selfId: null, targetId: null, you: null, target: null, busy: false, pickSlot: null, showAll: false, cheatOpen: false, reqOpen: false, preOpen: false, youState: null, tgtState: null };
+    var ctx = { selfId: null, targetId: null, you: null, target: null, busy: false, pickSlot: null, showAll: false, cheatOpen: false, reqOpen: false, preOpen: false, romOpen: false, youState: null, tgtState: null };
     var ADULT = { Youth: 1, Adult: 1, Old: 1, Elderly: 1 };
-    var AGE_TEXT = { Youth: 'Young Adult', Adult: 'Adult', Old: 'Older Adult', Elderly: 'Elder' };
+    var AGE_KEYS = { Youth: 'age.youth', Adult: 'age.adult', Old: 'age.old', Elderly: 'age.elder' };
+    function ageText(g) { return AGE_KEYS[g] ? t(AGE_KEYS[g]) : g; }
+    function genderText(g) { return g === 'Male' ? t('gender.male') : (g === 'Female' ? t('gender.female') : g); }
     var roster = [];
 
     // ------------------------------------------------------------------ diary (plain words) + log (technical, saved to a file)
@@ -232,14 +458,26 @@
                 .catch(function (e) { var t; try { t = typeof e === 'object' ? JSON.stringify(e) : String(e); } catch (x) { t = String(e); } log(label + ' ERROR: ' + t); });
     }
 
+    // The window grows with its pages; when it would run off the screen the content area scrolls instead.
+    function fitHeight() {
+        try {
+            var h = (window.innerHeight || 1080) - pxv(230);
+            content.style.maxHeight = Math.max(260, h) + 'px';
+        } catch (e) {}
+    }
+    window.addEventListener('resize', fitHeight);
+
     // ------------------------------------------------------------------ build / rebuild the window at the current scale
     function build() {
         styleEl.textContent = cssText();
+        fitHeight();
+        bSmaller.title = t('tip.smaller'); bBigger.title = t('tip.bigger');
+        head.style.paddingRight = pxv(190) + 'px';
         head.innerHTML = sc(
             '<div style="width:70px;height:64px;flex-shrink:0;">' + pacifier(64, '#f2a9a2') + '</div>' +
             '<div style="margin-left:18px;">' +
-              '<div class="ssp-h1" style="font-size:64px;line-height:60px;color:' + RED + ';transform:rotate(-1.5deg);transform-origin:left center;">The Bakery</div>' +
-              '<div style="font-size:24px;font-weight:700;letter-spacing:3px;color:#4f86b8;margin-top:2px;">SETTINGS</div>' +
+              '<div class="ssp-h1" style="font-size:64px;line-height:60px;color:' + RED + ';transform:rotate(-1.5deg);transform-origin:left center;">' + tH('title.name') + '</div>' +
+              '<div style="font-size:24px;font-weight:700;letter-spacing:3px;color:#4f86b8;margin-top:2px;">' + tH('title.settings') + '</div>' +
             '</div>');
 
         content.innerHTML = sc(
@@ -255,131 +493,159 @@
             '</div>' +
             // sections (each opens its own page)
             '<div id="ssp-preHead" class="ssp-card ssp-click" style="padding:8px 14px;margin-bottom:16px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
-              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">Pregnancy</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Who carries, both partners, tests, birth scene</div></div>' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">' + tH('sec.pre') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('sec.pre.sub') + '</div></div>' +
+              '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
+            '</div>' +
+            '<div id="ssp-romHead" class="ssp-card ssp-click" style="padding:8px 14px;margin-bottom:16px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">' + tH('sec.rom') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('sec.rom.sub') + '</div></div>' +
               '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
             '</div>' +
             '<div id="ssp-reqHead" class="ssp-card ssp-click" style="padding:8px 14px;margin-bottom:16px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
-              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">Requirements</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Unmarried, married, pregnancy chats</div></div>' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">' + tH('sec.req') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('sec.req.sub') + '</div></div>' +
               '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
             '</div>' +
             '<div id="ssp-cheatHead" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">' +
-              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">Cheats</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Start a test, deliver a baby, remove a pregnancy</div></div>' +
+              '<div style="line-height:1.1;"><div class="ssp-head" style="font-size:24px;">' + tH('sec.cheat') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('sec.cheat.sub') + '</div></div>' +
               '<div style="font-size:34px;font-weight:700;margin-left:12px;">&gt;</div>' +
             '</div>' +
             '</div>' +
             '<div id="ssp-pagePre" style="display:none;opacity:0;">' +
             '<div id="ssp-preBack" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px;">' +
               '<div style="font-size:34px;font-weight:700;margin-right:12px;">&lt;</div>' +
-              '<div class="ssp-head" style="font-size:24px;">Pregnancy</div>' +
+              '<div class="ssp-head" style="font-size:24px;">' + tH('sec.pre') + '</div>' +
             '</div>' +
             // who carries
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Who carries the baby?</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">My Zoi is whichever Zoi you are playing at the time.</div>' +
+              '<div class="ssp-head">' + tH('pre.carry') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('pre.carry.hint') + '</div>' +
               '<div class="ssp-row" style="margin-top:6px;">' +
-                '<div id="ssp-mRand" class="ssp-click" style="flex:1;margin-right:12px;text-align:center;padding:6px 0;font-size:26px;font-weight:700;">Random</div>' +
-                '<div id="ssp-mYou" class="ssp-click" style="flex:1;margin-right:12px;text-align:center;padding:6px 0;font-size:26px;font-weight:700;">My Zoi</div>' +
-                '<div id="ssp-mTgt" class="ssp-click" style="flex:1;text-align:center;padding:6px 0;font-size:26px;font-weight:700;">Their partner</div>' +
+                '<div id="ssp-mRand" class="ssp-click" style="flex:1;margin-right:12px;text-align:center;padding:6px 0;font-size:26px;font-weight:700;">' + tH('opt.random') + '</div>' +
+                '<div id="ssp-mYou" class="ssp-click" style="flex:1;margin-right:12px;text-align:center;padding:6px 0;font-size:26px;font-weight:700;">' + tH('opt.myzoi') + '</div>' +
+                '<div id="ssp-mTgt" class="ssp-click" style="flex:1;text-align:center;padding:6px 0;font-size:26px;font-weight:700;">' + tH('opt.partner') + '</div>' +
               '</div>' +
             '</div>' +
             // chance both (chips)
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Both partners expecting?</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Chance that BOTH partners become pregnant at once. Never = only one does.</div>' +
+              '<div class="ssp-head">' + tH('pre.both') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('pre.both.hint') + '</div>' +
               '<div id="ssp-chBoth" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
+            // male + female couples: may the man carry too
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">' + tH('pre.man') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('pre.man.hint') + '</div>' +
+              '<div id="ssp-chMF" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
             // chance a pregnancy test comes back negative (the game's own negative test)
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Pregnancy tests</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Chance a test comes back negative. Never = always positive.</div>' +
+              '<div class="ssp-head">' + tH('pre.tests') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('pre.tests.hint') + '</div>' +
               '<div id="ssp-chFail" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
+            // Set the Mood: chance that it ends in a pregnancy test
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">' + tH('mood.head') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('pre.mood.hint') + '</div>' +
+              '<div id="ssp-chMood" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
             // birth scene of a male carrier
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Birth scene for male carriers</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">The game\'s birth scene only has a woman in it, so the bed is empty for a man.</div>' +
+              '<div class="ssp-head">' + tH('pre.birth') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('pre.birth.hint') + '</div>' +
               '<div id="ssp-chCut" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
+            '</div>' +
+            '<div id="ssp-pageRom" style="display:none;opacity:0;">' +
+            '<div id="ssp-romBack" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px;">' +
+              '<div style="font-size:34px;font-weight:700;margin-right:12px;">&lt;</div>' +
+              '<div class="ssp-head" style="font-size:24px;">' + tH('sec.rom') + '</div>' +
+            '</div>' +
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">' + tH('rom.ss') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('rom.ss.hint') + '</div>' +
+              '<div id="ssp-chSS" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
             '</div>' +
             '<div id="ssp-pageReq" style="display:none;opacity:0;">' +
             '<div id="ssp-reqBack" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px;">' +
               '<div style="font-size:34px;font-weight:700;margin-right:12px;">&lt;</div>' +
-              '<div class="ssp-head" style="font-size:24px;">Requirements</div>' +
+              '<div class="ssp-head" style="font-size:24px;">' + tH('sec.req') + '</div>' +
             '</div>' +
             // unmarried couples: what they need
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Unmarried couples</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">What they need before they can try for a baby. 0 = not needed.</div>' +
+              '<div class="ssp-head">' + tH('req.unmarried') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('req.hint.baby') + '</div>' +
               '<div id="ssp-stFriend" class="ssp-row" style="margin-top:6px;"></div>' +
               '<div id="ssp-stRomance" class="ssp-row" style="margin-top:10px;"></div>' +
             '</div>' +
             // married couples: what they need
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Married couples</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">What they need before they can try for a baby. 0 = not needed.</div>' +
+              '<div class="ssp-head">' + tH('req.married') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('req.hint.baby') + '</div>' +
               '<div id="ssp-stMarried" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
             // friends' pregnancy chats
             '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
-              '<div class="ssp-head">Pregnancy chats</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">How close friends must be to check in on a pregnancy and talk about the baby. 0 = not needed.</div>' +
+              '<div class="ssp-head">' + tH('req.chats') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('req.chats.hint') + '</div>' +
               '<div id="ssp-stChat" class="ssp-row" style="margin-top:6px;"></div>' +
+            '</div>' +
+            // Set the Mood: what a couple needs before it can lead to a pregnancy test
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-bottom:16px;">' +
+              '<div class="ssp-head">' + tH('mood.head') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('req.mood.hint') + '</div>' +
+              '<div id="ssp-stMoodF" class="ssp-row" style="margin-top:6px;"></div>' +
+              '<div id="ssp-stMoodR" class="ssp-row" style="margin-top:10px;"></div>' +
             '</div>' +
             '</div>' +
             '<div id="ssp-pageCheats" style="display:none;opacity:0;">' +
             '<div id="ssp-cheatBack" class="ssp-card ssp-click" style="padding:8px 14px;display:flex;flex-direction:row;align-items:center;margin-bottom:16px;">' +
               '<div id="ssp-cheatMarkB" style="font-size:34px;font-weight:700;margin-right:12px;">&lt;</div>' +
-              '<div class="ssp-head" style="font-size:24px;">Cheats</div>' +
+              '<div class="ssp-head" style="font-size:24px;">' + tH('sec.cheat') + '</div>' +
             '</div>' +
-            // pair
+            // pair: each partner card holds who they are, whether they are expecting and their pregnancy tools
             '<div class="ssp-row" style="margin-bottom:16px;">' +
-              '<div id="ssp-cardYou" class="ssp-card ssp-click" style="flex:1;margin-right:18px;padding:12px 14px;display:flex;flex-direction:row;align-items:center;">' +
-                                '<div style="line-height:1;"><div style="font-size:20px;font-weight:700;color:' + RED + ';letter-spacing:2px;">PARTNER 1</div><div id="ssp-youName" style="font-size:34px;font-weight:700;">...</div><div id="ssp-youInfo" style="font-size:19px;color:' + MUTED + ';">&nbsp;</div></div>' +
+              '<div id="ssp-cardYou" class="ssp-card ssp-click" style="flex:1;margin-right:18px;padding:12px 14px;display:flex;flex-direction:column;align-items:stretch;">' +
+                '<div style="line-height:1;"><div style="font-size:20px;font-weight:700;color:' + RED + ';letter-spacing:2px;">' + tH('cheat.p1') + '</div><div id="ssp-youName" style="font-size:34px;font-weight:700;">...</div><div id="ssp-youInfo" style="font-size:19px;color:' + MUTED + ';">&nbsp;</div></div>' +
+                '<div id="ssp-stateYou" style="font-size:19px;color:' + MUTED + ';margin-top:8px;border-top:1px dashed ' + NAVY + ';padding-top:6px;"></div>' +
+                '<div id="ssp-delYou" class="ssp-click ssp-tool" style="margin-left:0px;margin-top:6px;">' + tH('cheat.deliver') + '</div>' +
+                '<div id="ssp-remYou" class="ssp-click ssp-tool" style="margin-left:0px;margin-top:6px;">' + tH('cheat.remove') + '</div>' +
               '</div>' +
-              '<div id="ssp-cardTgt" class="ssp-card ssp-click" style="flex:1;padding:12px 14px;display:flex;flex-direction:row;align-items:center;">' +
-                                '<div style="line-height:1;"><div style="font-size:20px;font-weight:700;color:' + RED + ';letter-spacing:2px;">PARTNER 2</div><div id="ssp-tgtName" style="font-size:34px;font-weight:700;">...</div><div id="ssp-tgtInfo" style="font-size:19px;color:' + MUTED + ';">&nbsp;</div></div>' +
+              '<div id="ssp-cardTgt" class="ssp-card ssp-click" style="flex:1;padding:12px 14px;display:flex;flex-direction:column;align-items:stretch;">' +
+                '<div style="line-height:1;"><div style="font-size:20px;font-weight:700;color:' + RED + ';letter-spacing:2px;">' + tH('cheat.p2') + '</div><div id="ssp-tgtName" style="font-size:34px;font-weight:700;">...</div><div id="ssp-tgtInfo" style="font-size:19px;color:' + MUTED + ';">&nbsp;</div></div>' +
+                '<div id="ssp-stateTgt" style="font-size:19px;color:' + MUTED + ';margin-top:8px;border-top:1px dashed ' + NAVY + ';padding-top:6px;"></div>' +
+                '<div id="ssp-delTgt" class="ssp-click ssp-tool" style="margin-left:0px;margin-top:6px;">' + tH('cheat.deliver') + '</div>' +
+                '<div id="ssp-remTgt" class="ssp-click ssp-tool" style="margin-left:0px;margin-top:6px;">' + tH('cheat.remove') + '</div>' +
               '</div>' +
             '</div>' +
             // picker (hidden until a card is tapped)
             '<div id="ssp-picker" class="ssp-card" style="display:none;padding:8px 10px 10px;margin-bottom:16px;margin-top:10px;">' +
-              '<div id="ssp-pickTitle" class="ssp-head" style="font-size:24px;">Choose a Zoi</div>' +
+              '<div id="ssp-pickTitle" class="ssp-head" style="font-size:24px;">' + tH('pick.choose') + '</div>' +
               '<div id="ssp-pickList" style="max-height:112px;overflow:hidden;margin-top:4px;padding-right:16px;"></div>' +
-              '<div id="ssp-pickAll" class="ssp-click" style="margin-top:6px;text-align:center;font-size:20px;color:' + MUTED + ';border-top:1px dashed ' + NAVY + ';padding-top:6px;">Show everyone in town</div>' +
+              '<div id="ssp-pickAll" class="ssp-click" style="margin-top:6px;text-align:center;font-size:20px;color:' + MUTED + ';border-top:1px dashed ' + NAVY + ';padding-top:6px;">' + tH('pick.all') + '</div>' +
             '</div>' +
             // go banner
             '<div id="ssp-go" class="ssp-hatch ssp-click" style="border:2.5px solid ' + NAVY + ';border-radius:6px;box-shadow:4px 4px 0 ' + NAVY + ';display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:8px 18px;margin-bottom:16px;">' +
               '<div style="width:46px;height:50px;">' + CAKE + '</div>' +
-              '<span class="ssp-h1" style="font-size:44px;letter-spacing:2px;color:#fff;text-shadow:2px 2px 0 ' + NAVY + ',-1px -1px 0 ' + NAVY + ',1px -1px 0 ' + NAVY + ',-1px 1px 0 ' + NAVY + ';">Try for a baby!</span>' +
+              '<span class="ssp-h1" style="font-size:44px;letter-spacing:2px;color:#fff;text-shadow:2px 2px 0 ' + NAVY + ',-1px -1px 0 ' + NAVY + ',1px -1px 0 ' + NAVY + ',-1px 1px 0 ' + NAVY + ';">' + tH('cheat.go') + '</span>' +
               '<div style="width:40px;height:40px;">' + pacifier(40, '#fff') + '</div>' +
             '</div>' +
-            // other tools
-            '<div class="ssp-card" style="padding:12px 14px 14px;margin-top:0px;">' +
-              '<div class="ssp-row" style="align-items:center;margin-bottom:12px;">' +
-                '<div style="flex:1;min-width:0px;line-height:1;"><div id="ssp-toolYou" style="font-size:24px;font-weight:700;"></div><div id="ssp-stateYou" style="font-size:18px;color:' + MUTED + ';"></div></div>' +
-                '<div id="ssp-delYou" class="ssp-click ssp-tool">Deliver baby</div>' +
-                '<div id="ssp-remYou" class="ssp-click ssp-tool">Remove pregnancy</div>' +
-              '</div>' +
-              '<div class="ssp-row" style="align-items:center;">' +
-                '<div style="flex:1;min-width:0px;line-height:1;"><div id="ssp-toolTgt" style="font-size:24px;font-weight:700;"></div><div id="ssp-stateTgt" style="font-size:18px;color:' + MUTED + ';"></div></div>' +
-                '<div id="ssp-delTgt" class="ssp-click ssp-tool">Deliver baby</div>' +
-                '<div id="ssp-remTgt" class="ssp-click ssp-tool">Remove pregnancy</div>' +
-              '</div>' +
-            '</div>' +
             // trimester (move an expecting partner forward to check the baby bump)
-            '<div class="ssp-card" style="padding:10px 14px 14px;margin-top:16px;">' +
-              '<div class="ssp-head">Trimester</div>' +
-              '<div style="font-size:19px;color:' + MUTED + ';">Move whoever is expecting forward to check the baby bump. It only goes forward.</div>' +
+            '<div class="ssp-card" style="padding:10px 14px 14px;margin-top:0px;">' +
+              '<div class="ssp-head">' + tH('tri.head') + '</div>' +
+              '<div style="font-size:19px;color:' + MUTED + ';">' + tH('tri.hint') + '</div>' +
               '<div id="ssp-stageRow" class="ssp-row" style="margin-top:6px;"></div>' +
             '</div>' +
             '</div>' +
             // diary (always visible; select the text or press Copy)
             '<div class="ssp-card" style="padding:10px 14px 12px;margin-top:16px;">' +
               '<div class="ssp-row" style="justify-content:space-between;align-items:center;">' +
-                '<div style="font-size:22px;font-weight:700;color:' + RED + ';">Diary</div>' +
-                '<div id="ssp-copy" class="ssp-click ssp-tbtn2">Copy</div>' +
+                '<div style="font-size:22px;font-weight:700;color:' + RED + ';">' + tH('diary.head') + '</div>' +
+                '<div id="ssp-copy" class="ssp-click ssp-tbtn2">' + tH('diary.copy') + '</div>' +
               '</div>' +
               '<div id="ssp-diary" style="font-size:22px;line-height:28px;height:168px;overflow-y:auto;user-select:text;-webkit-user-select:text;cursor:text;background-image:repeating-linear-gradient(180deg,rgba(255,250,240,0) 0px,rgba(255,250,240,0) 27px,rgba(80,130,180,0.5) 27px,rgba(80,130,180,0.5) 28px);background-attachment:local;"></div>' +
             '</div>');
@@ -390,9 +656,9 @@
             picker: $('ssp-picker'), pickTitle: $('ssp-pickTitle'), pickList: $('ssp-pickList'), pickAll: $('ssp-pickAll'),
             tMM: $('ssp-tMM'), tFF: $('ssp-tFF'), tAuto: $('ssp-tAuto'), tNpc: $('ssp-tNpc'),
             mRand: $('ssp-mRand'), mYou: $('ssp-mYou'), mTgt: $('ssp-mTgt'),
-            stageHost: $('ssp-stageRow'), chBoth: $('ssp-chBoth'), chFail: $('ssp-chFail'), stFriend: $('ssp-stFriend'), stRomance: $('ssp-stRomance'), stMarried: $('ssp-stMarried'), stChat: $('ssp-stChat'), chCut: $('ssp-chCut'),
-            go: $('ssp-go'), diary: $('ssp-diary'), pageSettings: $('ssp-pageSettings'), pageCheats: $('ssp-pageCheats'), pageReq: $('ssp-pageReq'), reqHead: $('ssp-reqHead'), reqBack: $('ssp-reqBack'), pagePre: $('ssp-pagePre'), preHead: $('ssp-preHead'), preBack: $('ssp-preBack'), cheatBack: $('ssp-cheatBack'), cheatHead: $('ssp-cheatHead'), cheatMark: $('ssp-cheatMark'),
-            toolYou: $('ssp-toolYou'), stateYou: $('ssp-stateYou'), stateTgt: $('ssp-stateTgt'), toolTgt: $('ssp-toolTgt'), delYou: $('ssp-delYou'), remYou: $('ssp-remYou'), delTgt: $('ssp-delTgt'), remTgt: $('ssp-remTgt'), copy: $('ssp-copy')
+            stageHost: $('ssp-stageRow'), chBoth: $('ssp-chBoth'), chFail: $('ssp-chFail'), chMood: $('ssp-chMood'), chMF: $('ssp-chMF'), chSS: $('ssp-chSS'), stMoodF: $('ssp-stMoodF'), stMoodR: $('ssp-stMoodR'), stFriend: $('ssp-stFriend'), stRomance: $('ssp-stRomance'), stMarried: $('ssp-stMarried'), stChat: $('ssp-stChat'), chCut: $('ssp-chCut'),
+            go: $('ssp-go'), diary: $('ssp-diary'), pageSettings: $('ssp-pageSettings'), pageCheats: $('ssp-pageCheats'), pageReq: $('ssp-pageReq'), reqHead: $('ssp-reqHead'), reqBack: $('ssp-reqBack'), pagePre: $('ssp-pagePre'), pageRom: $('ssp-pageRom'), romHead: $('ssp-romHead'), romBack: $('ssp-romBack'), preHead: $('ssp-preHead'), preBack: $('ssp-preBack'), cheatBack: $('ssp-cheatBack'), cheatHead: $('ssp-cheatHead'), cheatMark: $('ssp-cheatMark'),
+            stateYou: $('ssp-stateYou'), stateTgt: $('ssp-stateTgt'), delYou: $('ssp-delYou'), remYou: $('ssp-remYou'), delTgt: $('ssp-delTgt'), remTgt: $('ssp-remTgt'), copy: $('ssp-copy')
         };
 
         el.tMM.addEventListener('click', function () { change(function () { cfg.allowMM = !cfg.allowMM; }); });
@@ -403,15 +669,17 @@
         el.mYou.addEventListener('click', function () { change(function () { cfg.motherMode = 'you'; }); });
         el.mTgt.addEventListener('click', function () { change(function () { cfg.motherMode = 'target'; }); });
         el.go.addEventListener('click', tryForBaby);
-        el.delYou.addEventListener('click', function () { deliver('you'); });
-        el.delTgt.addEventListener('click', function () { deliver('target'); });
-        el.remYou.addEventListener('click', function () { removePreg('you', el.remYou); });
-        el.remTgt.addEventListener('click', function () { removePreg('target', el.remTgt); });
+        el.delYou.addEventListener('click', function (e) { e.stopPropagation(); deliver('you'); });
+        el.delTgt.addEventListener('click', function (e) { e.stopPropagation(); deliver('target'); });
+        el.remYou.addEventListener('click', function (e) { e.stopPropagation(); removePreg('you', el.remYou); });
+        el.remTgt.addEventListener('click', function (e) { e.stopPropagation(); removePreg('target', el.remTgt); });
         el.copy.addEventListener('click', copyDiary);
         el.cheatHead.addEventListener('click', function () { ctx.cheatOpen = true; renderCheat(); refreshStates(); });
         el.cheatBack.addEventListener('click', function () { ctx.cheatOpen = false; renderCheat(); });
         el.reqHead.addEventListener('click', function () { ctx.reqOpen = true; renderCheat(); });
         el.reqBack.addEventListener('click', function () { ctx.reqOpen = false; renderCheat(); });
+        el.romHead.addEventListener('click', function () { ctx.romOpen = true; renderCheat(); });
+        el.romBack.addEventListener('click', function () { ctx.romOpen = false; renderCheat(); });
         el.preHead.addEventListener('click', function () { ctx.preOpen = true; renderCheat(); });
         el.preBack.addEventListener('click', function () { ctx.preOpen = false; renderCheat(); });
         el.cardYou.addEventListener('click', function () { openPicker('you'); });
@@ -419,6 +687,7 @@
         el.pickAll.addEventListener('click', function () { ctx.showAll = !ctx.showAll; loadRoster().then(renderPicker); });
 
         renderSettings(); renderPair(); renderPicker(); refreshVerdict(); renderDiary(); renderCheat(true); renderTools();
+        attachScroll(content, wf.root);
     }
     // ------------------------------------------------------------------ custom scroll bars
     // The game's UI engine draws no scroll bars, so boxes that scroll get a thin themed bar of their own.
@@ -492,8 +761,8 @@
     var pageTimer = null;
     var curPage = null; // the page actually on screen (updated when a swap happens, not when it is asked for)
     function renderCheat(instant) {
-        var to = ctx.cheatOpen ? el.pageCheats : (ctx.reqOpen ? el.pageReq : (ctx.preOpen ? el.pagePre : el.pageSettings));
-        var o = to === el.pageCheats, pages = [el.pageSettings, el.pageCheats, el.pageReq, el.pagePre];
+        var to = ctx.cheatOpen ? el.pageCheats : (ctx.reqOpen ? el.pageReq : (ctx.preOpen ? el.pagePre : (ctx.romOpen ? el.pageRom : el.pageSettings)));
+        var o = to === el.pageCheats, pages = [el.pageSettings, el.pageCheats, el.pageReq, el.pagePre, el.pageRom];
         if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
         fitHold = Date.now() + 600;
         if (instant || !curPage) {
@@ -504,6 +773,7 @@
         }
         if (curPage === to) { to.style.opacity = '1'; return; }
         curPage.style.opacity = '0';
+        try { content.scrollTop = 0; } catch (e) {}
         pageTimer = setTimeout(function () {
             pages.forEach(function (pg) { if (pg !== to) { pg.style.display = 'none'; pg.style.opacity = '0'; } });
             to.style.display = 'block';
@@ -530,20 +800,25 @@
         node.style.boxShadow = on ? sc('3px 3px 0 ') + RED : sc('3px 3px 0 ') + NAVY;
     }
     function renderSettings() {
-        tile(el.tMM, cfg.allowMM, 'Male + male', cfg.allowMM ? 'ALLOWED' : 'OFF');
-        tile(el.tFF, cfg.allowFF, 'Female + female', cfg.allowFF ? 'ALLOWED' : 'OFF');
-        tile(el.tAuto, cfg.autonomy, 'Household Autonomy', cfg.autonomy ? 'ON' : 'OFF');
+        tile(el.tMM, cfg.allowMM, t('tile.mm'), cfg.allowMM ? t('tag.allowed') : t('tag.off'));
+        tile(el.tFF, cfg.allowFF, t('tile.ff'), cfg.allowFF ? t('tag.allowed') : t('tag.off'));
+        optRow(el.chSS, 'sameSex', [['on', t('opt.on'), ''], ['off', t('opt.off'), '']]);
+        optRow(el.chMF, 'mfMan', [['off', t('opt.off'), ''], ['on', t('opt.on'), '']]);
+        tile(el.tAuto, cfg.autonomy, t('tile.household'), cfg.autonomy ? t('tag.on') : t('tag.off'));
         motherOpt(el.mRand, cfg.motherMode === 'random');
         motherOpt(el.mYou, cfg.motherMode === 'you');
         motherOpt(el.mTgt, cfg.motherMode === 'target');
         chipRow(el.chBoth, 'bothChance');
         chipRow(el.chFail, 'testFail');
-        stepRow(el.stFriend, 'reqFriend', 'Friendship');
-        stepRow(el.stRomance, 'reqRomance', 'Romance');
-        stepRow(el.stMarried, 'reqMarried', 'Family bond');
-        stepRow(el.stChat, 'reqChat', 'Friendship');
-        optRow(el.chCut, 'birthCutscene', [['skip', 'Skip it', 'baby just arrives'], ['play', 'Play it', 'empty bed']]);
-        tile(el.tNpc, cfg.npcCouples === 'on', 'Town Autonomy', cfg.npcCouples === 'on' ? 'ON' : 'OFF');
+        chipRow(el.chMood, 'moodChance', MOOD_CHANCES);
+        stepRow(el.stMoodF, 'moodReqF', t('word.friendship'));
+        stepRow(el.stMoodR, 'moodReqR', t('word.romance'));
+        stepRow(el.stFriend, 'reqFriend', t('word.friendship'));
+        stepRow(el.stRomance, 'reqRomance', t('word.romance'));
+        stepRow(el.stMarried, 'reqMarried', t('word.family'));
+        stepRow(el.stChat, 'reqChat', t('word.friendship'));
+        optRow(el.chCut, 'birthCutscene', [['skip', t('opt.skip'), t('opt.skip.sub')], ['play', t('opt.play'), t('opt.play.sub')]]);
+        tile(el.tNpc, cfg.npcCouples === 'on', t('tile.town'), cfg.npcCouples === 'on' ? t('tag.on') : t('tag.off'));
     }
     // A number the player can step up and down, built from the same chips as the rows above: a minus chip, a hatched
     // value chip (name on top, the number below) and a plus chip. 0 reads as "not needed".
@@ -566,7 +841,7 @@
         var v = cfg[key], dn = host.children[0], mid2 = host.children[1], up = host.children[2];
         mid2.className = 'ssp-hatch';
         mid2.style.boxShadow = sc('3px 3px 0 ') + RED;
-        mid2.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + label + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + (v > 0 ? v + '+' : 'not needed') + '</div>';
+        mid2.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + esc(label) + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + (v > 0 ? v + '+' : esc(t('word.notneeded'))) + '</div>';
         [[dn, v <= 0], [up, v >= 100]].forEach(function (p) {
             p[0].className = 'ssp-click ssp-opt';
             p[0].style.background = '#ffffff';
@@ -580,7 +855,7 @@
             opts.forEach(function (o, i) {
                 var d = document.createElement('div');
                 d.style.cssText = sc('flex:1 1 0px;min-width:0px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;' + (i < opts.length - 1 ? 'margin-right:10px;' : ''));
-                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + o[1] + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + o[2] + '</div>';
+                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + esc(o[1]) + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + esc(o[2]) + '</div>';
                 d.addEventListener('click', function () { change(function () { cfg[key] = o[0]; }); });
                 host.appendChild(d);
             });
@@ -592,18 +867,19 @@
             d.style.boxShadow = sc('3px 3px 0 ') + (on ? RED : NAVY);
         });
     }
-    function chipRow(host, key) {
-        if (host.children.length !== CHANCES.length) {
+    function chipRow(host, key, list) {
+        var CH = list || CHANCES;
+        if (host.children.length !== CH.length) {
             host.innerHTML = '';
-            CHANCES.forEach(function (c, i) {
+            CH.forEach(function (c, i) {
                 var d = document.createElement('div');
-                d.style.cssText = sc('flex:1 1 0px;min-width:0px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;' + (i < CHANCES.length - 1 ? 'margin-right:10px;' : ''));
-                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + c[1] + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + c[0] + '%</div>';
+                d.style.cssText = sc('flex:1 1 0px;min-width:0px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;' + (i < CH.length - 1 ? 'margin-right:10px;' : ''));
+                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + tH(c[1]) + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + c[0] + '%</div>';
                 d.addEventListener('click', function () { change(function () { cfg[key] = c[0]; }); });
                 host.appendChild(d);
             });
         }
-        CHANCES.forEach(function (c, i) {
+        CH.forEach(function (c, i) {
             var on = cfg[key] === c[0], d = host.children[i];
             d.className = 'ssp-click' + (on ? ' ssp-hatch' : ' ssp-opt');
             d.style.background = on ? '' : '#ffffff';
@@ -648,14 +924,14 @@
     })();
 
     // ------------------------------------------------------------------ the two Zois
-    function info(c) { return c ? (c.gender + ', ' + (AGE_TEXT[c.growth_step] || c.growth_step)) : ''; }
+    function info(c) { return c ? (genderText(c.gender) + ', ' + ageText(c.growth_step)) : ''; }
 
     function renderPair() {
         el.youName.textContent = ctx.you ? ctx.you.name : '...';
         el.youInfo.textContent = ctx.you ? info(ctx.you) : '';
         if (ctx.selfId !== null && ctx.selfId === ctx.targetId) {
-            el.tgtName.textContent = 'Choose someone';
-            el.tgtInfo.textContent = 'tap here';
+            el.tgtName.textContent = t('pair.choose');
+            el.tgtInfo.textContent = t('pair.tap');
         } else {
             el.tgtName.textContent = ctx.target ? ctx.target.name : '...';
             el.tgtInfo.textContent = ctx.target ? info(ctx.target) : '';
@@ -664,18 +940,18 @@
 
     function stateText(st) {
         if (st === null || st === undefined) return '';
-        if (st === 'None' || st === '') return 'Not expecting';
-        if (st === 'PregnancyTest') return 'Just found out';
-        if (st.indexOf('Early') >= 0) return 'Early pregnancy';
-        if (st.indexOf('Mid') >= 0) return 'Mid pregnancy';
-        if (st.indexOf('Late') >= 0) return 'Late pregnancy';
-        if (st.indexOf('Imminent') >= 0) return 'Baby is coming!';
-        return 'Expecting';
+        if (st === 'None' || st === '') return t('state.none');
+        if (st === 'PregnancyTest') return t('state.test');
+        if (st.indexOf('Early') >= 0) return t('state.early');
+        if (st.indexOf('Mid') >= 0) return t('state.mid');
+        if (st.indexOf('Late') >= 0) return t('state.late');
+        if (st.indexOf('Imminent') >= 0) return t('state.imminent');
+        return t('state.other');
     }
     function isExpecting(st) { return !!st && st !== 'None'; }
     // Trimester chips. A click saves a request that B1/Main.lua picks up and passes to each expecting Zoi, whose B2 script
     // moves the pregnancy forward with the game's own state call (the game has no way back).
-    var STAGES = [['1st', 'early', 'PregnancyEarly'], ['2nd', 'middle', 'PregnancyMid'], ['3rd', 'late', 'PregnancyLate']];
+    var STAGES = [['tri.1st', 'tri.early', 'PregnancyEarly'], ['tri.2nd', 'tri.middle', 'PregnancyMid'], ['tri.3rd', 'tri.late', 'PregnancyLate']];
     function stageRank(st) {
         if (!st || st === 'None') return -1;
         if (st === 'PregnancyTest') return 0;
@@ -687,8 +963,8 @@
     }
     function expectingNow() {
         var same = ctx.selfId !== null && ctx.selfId === ctx.targetId, out = [];
-        if (isExpecting(ctx.youState)) out.push({ id: ctx.selfId, name: ctx.you ? ctx.you.name : 'Partner 1', st: ctx.youState });
-        if (!same && isExpecting(ctx.tgtState)) out.push({ id: ctx.targetId, name: ctx.target ? ctx.target.name : 'Partner 2', st: ctx.tgtState });
+        if (isExpecting(ctx.youState)) out.push({ id: ctx.selfId, name: ctx.you ? ctx.you.name : t('word.partner1'), st: ctx.youState });
+        if (!same && isExpecting(ctx.tgtState)) out.push({ id: ctx.targetId, name: ctx.target ? ctx.target.name : t('word.partner2'), st: ctx.tgtState });
         return out;
     }
     function renderStage() {
@@ -699,7 +975,7 @@
             STAGES.forEach(function (g, i) {
                 var d = document.createElement('div');
                 d.style.cssText = sc('flex:1 1 0px;min-width:0px;text-align:center;padding:4px 0 3px;line-height:1;border:2.5px solid ' + NAVY + ';border-radius:4px;' + (i < STAGES.length - 1 ? 'margin-right:10px;' : ''));
-                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + g[0] + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + g[1] + '</div>';
+                d.innerHTML = '<div style="font-size:' + pxv(22) + 'px;font-weight:700;">' + tH(g[0]) + '</div><div style="font-size:' + pxv(17) + 'px;color:' + MUTED + ';">' + tH(g[1]) + '</div>';
                 d.addEventListener('click', function () { setStage(i); });
                 host.appendChild(d);
             });
@@ -718,28 +994,26 @@
     function setStage(i) {
         if (ctx.busy) return;
         var want = i + 1, list = expectingNow();
-        if (!list.length) { say('Nobody here is expecting yet.'); return; }
+        if (!list.length) { say(t('say.noexpect')); return; }
         var go = list.filter(function (p) { return stageRank(p.st) < want; });
         if (!go.length) {
-            say(list.every(function (p) { return stageRank(p.st) === want; }) ? 'Already there.' : 'It only goes forward. Remove the pregnancy and start again to see an earlier stage.');
+            say(list.every(function (p) { return stageRank(p.st) === want; }) ? t('say.already') : t('say.forward'));
             return;
         }
         var parts = [String(Date.now())];
         go.forEach(function (p) { parts.push(p.id + ',' + STAGES[i][2]); });
         var pr = cli('uimod.cfg_save', { mod_id: MOD, section: 'settings', key: 'stage_req', value: parts.join(';') });
         if (pr && pr.catch) pr.catch(function () {});
-        say(go.map(function (p) { return p.name; }).join(' and ') + ' moving to the ' + STAGES[i][0] + ' trimester...');
+        say(t('say.moving', { names: go.map(function (p) { return p.name; }).join(t('word.and')), stage: t(STAGES[i][0]) }));
         setTimeout(function () {
             refreshStates().then(function () {
                 var still = expectingNow().filter(function (p) { return stageRank(p.st) < want; });
-                say(still.length ? 'Nothing moved yet. If the game is paused, unpause it and try again.' : 'Done. Check the baby bump.');
+                say(still.length ? t('say.nomove') : t('say.done'));
             });
         }, 3500);
     }
     function renderTools() {
         var same = ctx.selfId !== null && ctx.selfId === ctx.targetId;
-        el.toolYou.textContent = ctx.you ? ctx.you.name : '...';
-        el.toolTgt.textContent = same ? '(no target chosen)' : (ctx.target ? ctx.target.name : '...');
         el.stateYou.textContent = stateText(ctx.youState);
         el.stateTgt.textContent = same ? '' : stateText(ctx.tgtState);
         var yOn = isExpecting(ctx.youState), tOn = !same && isExpecting(ctx.tgtState);
@@ -803,8 +1077,8 @@
     function renderPicker() {
         if (!ctx.pickSlot) { el.picker.style.display = 'none'; return; }
         el.picker.style.display = 'block';
-        el.pickTitle.textContent = ctx.pickSlot === 'you' ? 'Choose Partner 1' : 'Choose Partner 2';
-        el.pickAll.textContent = ctx.showAll ? 'Show my household only' : 'Show everyone in town';
+        el.pickTitle.textContent = ctx.pickSlot === 'you' ? t('pick.p1') : t('pick.p2');
+        el.pickAll.textContent = ctx.showAll ? t('pick.household') : t('pick.all');
         var other = ctx.pickSlot === 'you' ? ctx.targetId : ctx.selfId;
         el.pickList.innerHTML = '';
         var shown = 0;
@@ -824,20 +1098,20 @@
             el.pickList.appendChild(row);
         });
         attachScroll(el.pickList, el.picker);
-        if (!shown) { var n = document.createElement('div'); n.style.cssText = sc('padding:6px 8px;font-size:21px;color:' + MUTED + ';'); n.textContent = 'Loading...'; el.pickList.appendChild(n); }
+        if (!shown) { var n = document.createElement('div'); n.style.cssText = sc('padding:6px 8px;font-size:21px;color:' + MUTED + ';'); n.textContent = t('pick.loading'); el.pickList.appendChild(n); }
     }
 
     // returns {ok:bool, text:string}
     function check() {
-        var y = ctx.you, t = ctx.target;
-        if (!y || !t) return { ok: false, text: 'Just a moment...' };
-        if (ctx.selfId === ctx.targetId) return { ok: false, text: 'Tap the Partner 2 card to pick who to try with.' };
-        if (!ADULT[y.growth_step] || !ADULT[t.growth_step]) return { ok: false, text: 'Both need to be young adults or older.' };
-        var gy = y.bio_gender || y.gender, gt = t.bio_gender || t.gender;
-        if (gy !== gt) return { ok: false, text: 'A man and a woman? The normal game handles that.' };
-        if (gy === 'Male' && !cfg.allowMM) return { ok: false, text: 'Male + male is switched off below.' };
-        if (gy === 'Female' && !cfg.allowFF) return { ok: false, text: 'Female + female is switched off below.' };
-        return { ok: true, text: y.name + ' and ' + t.name + ' can try for a baby!' };
+        var y = ctx.you, tg = ctx.target;
+        if (!y || !tg) return { ok: false, text: t('check.wait') };
+        if (ctx.selfId === ctx.targetId) return { ok: false, text: t('check.pickp2') };
+        if (!ADULT[y.growth_step] || !ADULT[tg.growth_step]) return { ok: false, text: t('check.adults') };
+        var gy = y.bio_gender || y.gender, gt = tg.bio_gender || tg.gender;
+        if (gy !== gt) return { ok: false, text: t('check.mf') };
+        if (gy === 'Male' && !cfg.allowMM) return { ok: false, text: t('check.mmoff') };
+        if (gy === 'Female' && !cfg.allowFF) return { ok: false, text: t('check.ffoff') };
+        return { ok: true, text: t('check.ok', { a: y.name, b: tg.name }) };
     }
     function refreshVerdict() {
         var live = check().ok && !ctx.busy;
@@ -878,7 +1152,7 @@
         }).then(function (r2) {
             if (r2 === undefined) bad = true;
             if (!bad && swapped === s0) { swapped = null; savePending(); }
-            else if (bad) say('Could not put the genders back just now. It will be tried again next time.');
+            else if (bad) say(t('say.genders'));
             restoring = null;
         }, function () { restoring = null; });
         return restoring;
@@ -909,7 +1183,7 @@
                     if (st && st !== 'None') got = true;
                     age = (Date.now() - started) / 1000;
                     if (st && st !== 'None' && st !== 'PregnancyTest') finish('reached ' + st, true);
-                    else if ((!st || st === 'None') && age > 45) { say('No pregnancy appeared.'); finish('no pregnancy', false); }
+                    else if ((!st || st === 'None') && age > 45) { say(t('say.nopreg')); finish('no pregnancy', false); }
                 }).catch(function (e) {
                     inflight = false; errs++;
                     log('poll error: ' + e);
@@ -942,7 +1216,7 @@
         }).catch(function () { runTry(null); });
     }
     function runTry(me) {
-        var y = ctx.you, t = ctx.target;
+        var y = ctx.you, tg = ctx.target;
         var g = y.bio_gender || y.gender;
         var meIsTwo = (me !== null && me === ctx.targetId);
         var youMother;
@@ -951,29 +1225,29 @@
         else youMother = Math.random() < 0.5;
         var both = Math.random() * 100 < cfg.bothChance;
 
-        var first = youMother ? [ctx.selfId, ctx.targetId, y.name] : [ctx.targetId, ctx.selfId, t.name];
-        var second = youMother ? t.name : y.name;
+        var first = youMother ? [ctx.selfId, ctx.targetId, y.name] : [ctx.targetId, ctx.selfId, tg.name];
+        var second = youMother ? tg.name : y.name;
 
         // refuse if the chosen mother is already pregnant
         cli('entity.reflect', { entity_id: first[0], Component: 'Bio' }).then(function (r) {
             var d = parseObj(r);
             if (d && d.currentPregnancyState && d.currentPregnancyState !== 'None') {
-                say(first[2] + ' is already expecting.');
+                say(t('say.isexpecting', { name: first[2] }));
                 ctx.busy = false; refreshVerdict(); return null;
             }
-            say(first[2] + ' is going to carry the baby...');
+            say(t('say.carry', { name: first[2] }));
             return startFor(first[0], first[1], g, g, 'mother = ' + first[2]).then(function (ok) {
-                if (!ok) { say('It did not work this time. Try again!'); return null; }
-                say('Success! ' + first[2] + ' is expecting.');
+                if (!ok) { say(t('say.nowork')); return null; }
+                say(t('say.success', { name: first[2] }));
                 if (!both) return null;
                 return startFor(first[1], first[0], g, g, 'second mother').then(function (ok2) {
-                    say(ok2 ? 'And ' + second + ' is expecting too!' : second + ' could not join in this time.');
+                    say(ok2 ? t('say.bothyes', { name: second }) : t('say.bothno', { name: second }));
                 });
             }).then(function () {
                 ctx.busy = false; refreshVerdict(); refreshStates();
             });
         }).catch(function (e) {
-            log('error: ' + e); say('Something went wrong. Please try again.');
+            log('error: ' + e); say(t('say.wrong'));
             restoreSwap('error').then(function () { ctx.busy = false; refreshVerdict(); });
         });
     }
@@ -981,9 +1255,9 @@
     // ---- other cheat tools: deliver now / remove a pregnancy
     function slotInfo(slot) {
         var same = ctx.selfId !== null && ctx.selfId === ctx.targetId;
-        if (slot === 'target' && same) { say('Pick Partner 2 first (tap the Partner 2 card).'); return null; }
+        if (slot === 'target' && same) { say(t('say.pickp2')); return null; }
         var id = slot === 'you' ? ctx.selfId : ctx.targetId, c = slot === 'you' ? ctx.you : ctx.target;
-        if (id === null || !c) { say('Pick a Zoi first.'); return null; }
+        if (id === null || !c) { say(t('say.pickzoi')); return null; }
         return { id: id, name: c.name };
     }
     // These game commands only act on the Zoi you are controlling, so switch to her first and CHECK it worked.
@@ -1007,49 +1281,49 @@
     function deliver(slot) {
         var z = slotInfo(slot);
         if (!z || ctx.busy) return;
-        if (!isExpecting(slot === 'you' ? ctx.youState : ctx.tgtState)) { say(z.name + ' is not expecting.'); return; }
+        if (!isExpecting(slot === 'you' ? ctx.youState : ctx.tgtState)) { say(t('say.notexpecting', { name: z.name })); return; }
         ctx.busy = true; refreshVerdict();
-        say('Delivering ' + z.name + "'s baby...");
+        say(t('say.delivering', { name: z.name }));
         restoreSwap('before delivery').then(function () { return ensurePossessed(z.id); }).then(function (p) {
-            if (!p.ok) { say('Could not switch to ' + z.name + '. Nothing was changed.'); return null; }
+            if (!p.ok) { say(t('say.noswitch', { name: z.name })); return null; }
             return logCall('deliver ' + z.id, cli('pregnancy_and_birth.hello_my_angel', { entity_id: z.id })).then(function (r) {
-                say(r === undefined ? 'That did not work.' : 'Done! The baby is on the way. You are now playing ' + z.name + '.');
+                say(r === undefined ? t('say.didnt') : t('say.delivered', { name: z.name }));
                 // the game ignores this while it is paused: check a moment later and say so instead of pretending
                 if (r !== undefined) setTimeout(function () {
                     readState(z.id).then(function (st) {
-                        if (isExpecting(st)) say('Nothing happened yet. If the game is paused, unpause it and try again.');
+                        if (isExpecting(st)) say(t('say.nothingyet'));
                         refreshStates();
                     });
                 }, 3500);
             });
         }).then(function () { ctx.busy = false; refreshVerdict(); refreshStates(); })
-          .catch(function () { say('That did not work.'); ctx.busy = false; refreshVerdict(); });
+          .catch(function () { say(t('say.didnt')); ctx.busy = false; refreshVerdict(); });
     }
 
     var removeArmed = null, armedBtn = null, armTimer = null;
     var PREG_BUFF_RE = /pregnan|morningsickness|milestone_family_(first|partnerfirst)pregnancy|newlifediscovery/i;
     function disarm() {
         removeArmed = null;
-        if (armedBtn) { armedBtn.textContent = 'Remove pregnancy'; armedBtn = null; }
+        if (armedBtn) { armedBtn.textContent = t('cheat.remove'); armedBtn = null; }
         if (armTimer) { clearTimeout(armTimer); armTimer = null; }
     }
     function removePreg(slot, btn) {
         var z = slotInfo(slot);
         if (!z || ctx.busy) return;
-        if (!isExpecting(slot === 'you' ? ctx.youState : ctx.tgtState)) { say(z.name + ' is not expecting.'); return; }
+        if (!isExpecting(slot === 'you' ? ctx.youState : ctx.tgtState)) { say(t('say.notexpecting', { name: z.name })); return; }
         if (removeArmed !== slot) {
             disarm();
-            removeArmed = slot; armedBtn = btn; btn.textContent = 'Tap again to confirm';
+            removeArmed = slot; armedBtn = btn; btn.textContent = t('cheat.confirm');
             armTimer = setTimeout(disarm, 4000);
             return;
         }
         disarm();
         ctx.busy = true; refreshVerdict();
-        say('Cleaning up ' + z.name + "'s pregnancy...");
+        say(t('say.cleaning', { name: z.name }));
         var orig = null, failed = false;
         restoreSwap('before removal').then(function () { return ensurePossessed(z.id); }).then(function (p) {
             orig = p.orig;
-            if (!p.ok) { failed = true; say('Could not switch to ' + z.name + '. Nothing was changed.'); return null; }
+            if (!p.ok) { failed = true; say(t('say.noswitch', { name: z.name })); return null; }
             return logCall('remove pregnancy ' + z.id, cli('pregnancy_and_birth.remove_pregnancy', { entity_id: z.id })).then(function () {
                 // sweep every buff the pregnancy left behind (buff.remove also only acts on the Zoi you control, and
                 // needs the exact key from the Buff map)
@@ -1069,20 +1343,20 @@
           .then(function () { return failed ? null : readState(z.id); })
           .then(function (st) {
             if (!failed) {
-                if (isExpecting(st)) say('That did not work. ' + z.name + ' is still expecting.');
-                else say(z.name + "'s pregnancy was removed and cleaned up. The baby bump may take a moment to go down. (The game keeps its small 'first pregnancy' milestone note and cannot erase it.)");
+                if (isExpecting(st)) say(t('say.stillexp', { name: z.name }));
+                else say(t('say.removed', { name: z.name }));
             }
             ctx.busy = false; refreshVerdict(); refreshStates();
         }).catch(function () {
-            possessBack(orig, z.id).then(function () { say('That did not work.'); ctx.busy = false; refreshVerdict(); });
+            possessBack(orig, z.id).then(function () { say(t('say.didnt')); ctx.busy = false; refreshVerdict(); });
         });
     }
     // Copy = the diary plus the log the simulation side saved by itself (cfg log/ssp_last, written even while this window
     // is closed). The page has no clipboard access, so the game's own clipboard.copy command does the copying.
     function copyDiary() {
         var done = function (ok) {
-            if (el.copy) el.copy.textContent = ok ? 'Copied!' : "Couldn't copy";
-            setTimeout(function () { if (el.copy) el.copy.textContent = 'Copy'; }, 2000);
+            if (el.copy) el.copy.textContent = ok ? t('diary.copied') : t('diary.copyfail');
+            setTimeout(function () { if (el.copy) el.copy.textContent = t('diary.copy'); }, 2000);
         };
         var load = cli('uimod.cfg_load', { mod_id: MOD, section: 'log', key: 'ssp_last' });
         var saved = (load && load.then) ? load.then(function (r) {
@@ -1091,8 +1365,8 @@
         }).catch(function () { return ''; }) : Promise.resolve('');
         saved.then(function (log) {
             var text = diaryLines.join('\n');
-            text += (text ? '\n\n' : '') + 'Mod log (oldest first):\n' +
-                (log ? log.split(',,').join('\n') : '(nothing recorded yet)');
+            text += (text ? '\n\n' : '') + t('diary.logtitle') + '\n' +
+                (log ? log.split(',,').join('\n') : t('diary.nolog'));
             var c = cli('clipboard.copy', { Text: text });
             if (!c || !c.then) { done(false); return; }
             return c.then(function () { done(true); });
@@ -1301,6 +1575,5 @@
     wf.root.style.left = '24px';
     wf.root.style.top = Math.max(120, (window.innerHeight || 1080) - 330) + 'px';
     build();
-    loadCfg().then(function () { build(); if (!cfg.autonomy) applyAutonomy(); }).then(recoverPending);
-    say('Ready when you are.');
+    loadCfg().then(applyLanguage).then(function () { build(); if (!cfg.autonomy) applyAutonomy(); say(t('diary.ready')); }).then(recoverPending);
 })();

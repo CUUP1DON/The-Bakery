@@ -41,6 +41,12 @@ local function build_cfg_message(data)
     if v then parts[#parts + 1] = "fail=" .. v end
     v = string.match(data, 'birthCutscene\\?"%s*:%s*\\?"(%a+)')
     if v then parts[#parts + 1] = "cut=" .. v end
+    v = string.match(data, 'moodChance\\?"%s*:%s*([%d%.]+)')
+    if v then parts[#parts + 1] = "mood=" .. v end
+    v = string.match(data, 'mfMan\\?"%s*:%s*\\?"(%a+)')
+    parts[#parts + 1] = "mfman=" .. ((v == "on") and "1" or "0")
+    v = string.match(data, 'sameSex\\?"%s*:%s*\\?"(%a+)')
+    parts[#parts + 1] = "ss=" .. ((v == "off") and "0" or "1")
     return table.concat(parts, ";")
 end
 
@@ -56,9 +62,11 @@ local function apply_data_settings(self, data)
         f, r = Unmarried.legacy(string.match(data, 'unmarried\\?"%s*:%s*\\?"(%a+)'))
     end
     f, r, m, c = Unmarried.clamp(f, 50), Unmarried.clamp(r, 0), Unmarried.clamp(m, 10), Unmarried.clamp(c, 30)
-    local key = f .. "," .. r .. "," .. m .. "," .. c
+    local mf = Unmarried.clamp(string.match(data, 'moodReqF\\?"%s*:%s*(%-?[%d%.]+)'), 0)
+    local mr = Unmarried.clamp(string.match(data, 'moodReqR\\?"%s*:%s*(%-?[%d%.]+)'), 30)
+    local key = f .. "," .. r .. "," .. m .. "," .. c .. "," .. mf .. "," .. mr
     if self.applied_req ~= key then
-        local ok, done = pcall(Unmarried.apply, f, r, m, c)
+        local ok, done = pcall(Unmarried.apply, f, r, m, c, mf, mr)
         if ok and done then self.applied_req = key end
     end
     local on = string.match(data, 'npcCouples\\?"%s*:%s*\\?"(%a+)') == "on"
@@ -138,6 +146,10 @@ local function push(self)
     end
     local rec = pending_record()
     if rec then pcall(function() inzoi.message.send_to_sim(eid, "ssp_recover", rec) end) end
+    -- the Zois whose orientation the same-sex romance setting changed (so turning it off can put them back)
+    local od = load_key("ssp_orient")
+    local ov = od and string.match(od, '"value"%s*:%s*\\?"([%w,_:]*)')
+    if ov and ov ~= "" and ov ~= "none" then pcall(function() inzoi.message.send_to_sim(eid, "ssp_orient_rec", ov) end) end
 end
 
 ---@param self table

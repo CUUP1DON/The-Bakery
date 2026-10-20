@@ -30,6 +30,16 @@ local MARRIED = {
     { id = "CanPregnancy_30_Over", floor = 30 },
 }
 
+-- Set the Mood next to a bed, for Zois who are not dating or engaged: the gate row has Romance at slot 2 and
+-- Friendship at slot 3 (static patch), repeated in groups 2, 5 and 8 (the game's own check, male + male, female + female). The bands that choose the outcome need their lower Romance bound lowered too,
+-- or a Zoi below the game's own 30 would be offered the option and then nothing would happen.
+local MOOD_GATES = { "CanMood_Lover_Bed", "CanMood_Lover_Event_Tent", "CanMood_Lover_Sofa01", "CanMood_Lover_PhoneBooth01", "CanMood_Sauna_Lover" }
+local MOOD_BANDS = {
+    { id = "CanMood_Lover_02", grp = 0 },
+    { id = "CanMood_Lover_03", grp = 3 },
+    { id = "CanMood_Lover_03", grp = 4 },
+}
+
 local CHAT = {
     "Pregnancy_KnowingPregnant_Friend_01", "Pregnancy_KnowingPregnant_Friend_02", "Pregnancy_KnowingPregnant_Friend_03",
     "Pregnancy_KnowingPregnant_Friend_Feedback_01", "Pregnancy_KnowingPregnant_Friend_Feedback_02",
@@ -86,10 +96,31 @@ local function patch_chat(row, value)
     return false
 end
 
+local function patch_or(row, grp, idx, value)
+    local q = TABLE .. "[Id=" .. row .. "].orConditionsList[" .. grp .. "].Conditions[" .. idx .. "].F1"
+    local ok, success, msg = pcall(function()
+        return inzoi.cli.execute("data.patch method=Override query=" .. q .. " value=" .. tostring(value))
+    end)
+    if ok and success == true then return true end
+    U.last_error = tostring(ok and msg or success)
+    log("requirement patch failed", q, U.last_error)
+    return false
+end
+
 -- Applies the requirements. Returns true only if every patch succeeded.
-function U.apply(friend, romance, married, chat)
+function U.apply(friend, romance, married, chat, moodF, moodR)
     friend, romance, married, chat = U.clamp(friend, 50), U.clamp(romance, 0), U.clamp(married, 10), U.clamp(chat, 30)
+    moodF, moodR = U.clamp(moodF, 0), U.clamp(moodR, 30)
     local all = true
+    for _, row in ipairs(MOOD_GATES) do
+        for _, grp in ipairs({ 2, 5, 8 }) do -- the "not dating or engaged" group of each variant (game check, male + male, female + female)
+            all = patch_or(row, grp, 2, lower(moodR)) and all
+            all = patch_or(row, grp, 3, lower(moodF)) and all
+        end
+    end
+    for _, b in ipairs(MOOD_BANDS) do
+        all = patch_or(b.id, b.grp, 3, math.min(30, lower(moodR))) and all
+    end
     for _, r in ipairs(UNMARRIED) do
         all = patch(r.id, 0, lower(friend, r.floor)) and all
         all = patch(r.id, r.rom, lower(romance, nil)) and all
@@ -100,7 +131,7 @@ function U.apply(friend, romance, married, chat)
     for _, id in ipairs(CHAT) do
         all = patch_chat(id, lower(chat, nil)) and all
     end
-    log("requirements applied: unmarried friendship", friend, "romance", romance, "married family", married, "chat friendship", chat, all and "ok" or "with errors")
+    log("requirements applied: unmarried friendship", friend, "romance", romance, "married family", married, "chat friendship", chat, "mood friendship", moodF, "mood romance", moodR, all and "ok" or "with errors")
     return all
 end
 

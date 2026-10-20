@@ -7,8 +7,8 @@
 
 local C = {}
 
-C.DEFAULTS = { allowMM = true, allowFF = true, mode = "random", both = 0, auto = true, npc = false, fail = 0, cut = "skip" }
-C.cfg = { allowMM = true, allowFF = true, mode = "random", both = 0, auto = true, npc = false, fail = 0, cut = "skip" }
+C.DEFAULTS = { allowMM = true, allowFF = true, mode = "random", both = 0, auto = true, npc = false, fail = 0, cut = "skip", mood = 20, mfman = false, orient = true }
+C.cfg = { allowMM = true, allowFF = true, mode = "random", both = 0, auto = true, npc = false, fail = 0, cut = "skip", mood = 20, mfman = false, orient = true }
 C.cfg_seen = false      -- true once B1 delivered settings at least once
 C.relay_eid = nil       -- a Zoi entity id that has a B1 receiver script (learned from incoming messages)
 C.recover = nil         -- list of { mother, partner, orig_m, orig_p } from the persisted pending swap
@@ -19,7 +19,8 @@ local function truthy(v) return v == "1" or v == "true" end
 function C.apply_cfg(s)
     if type(s) ~= "string" then return end
     local c = { allowMM = C.DEFAULTS.allowMM, allowFF = C.DEFAULTS.allowFF, mode = C.DEFAULTS.mode,
-        both = C.DEFAULTS.both, auto = C.DEFAULTS.auto, npc = C.DEFAULTS.npc, fail = C.DEFAULTS.fail, cut = C.DEFAULTS.cut }
+        both = C.DEFAULTS.both, auto = C.DEFAULTS.auto, npc = C.DEFAULTS.npc, fail = C.DEFAULTS.fail, cut = C.DEFAULTS.cut,
+        mood = C.DEFAULTS.mood, mfman = C.DEFAULTS.mfman, orient = C.DEFAULTS.orient }
     for k, v in string.gmatch(s, "(%w+)=([^;]*)") do
         if k == "allowMM" then c.allowMM = truthy(v)
         elseif k == "allowFF" then c.allowFF = truthy(v)
@@ -36,13 +37,20 @@ function C.apply_cfg(s)
             local n = tonumber(v) or 0
             if n < 0 then n = 0 elseif n > 100 then n = 100 end
             c.fail = n
+        elseif k == "mfman" then c.mfman = truthy(v)
+        elseif k == "ss" then c.orient = truthy(v)
+        elseif k == "mood" then
+            local n = tonumber(v) or 0
+            if n < 0 then n = 0 elseif n > 100 then n = 100 end
+            c.mood = n
         elseif k == "cut" then
             if v == "play" or v == "skip" then c.cut = v end
         end
     end
     local changed = not C.cfg_seen or c.allowMM ~= C.cfg.allowMM or c.allowFF ~= C.cfg.allowFF
         or c.mode ~= C.cfg.mode or c.both ~= C.cfg.both or c.auto ~= C.cfg.auto or c.npc ~= C.cfg.npc
-        or c.fail ~= C.cfg.fail or c.cut ~= C.cfg.cut
+        or c.fail ~= C.cfg.fail or c.cut ~= C.cfg.cut or c.mood ~= C.cfg.mood
+        or c.mfman ~= C.cfg.mfman or c.orient ~= C.cfg.orient
     C.cfg = c
     C.cfg_seen = true
     return changed

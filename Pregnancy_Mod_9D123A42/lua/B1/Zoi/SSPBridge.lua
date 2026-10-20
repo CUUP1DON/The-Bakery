@@ -36,6 +36,8 @@ function M.on_lua_message(self, owner, kind, content)
         pcall(function() inzoi.cli.execute("toast.clear") end)
     elseif kind == "ssp_pending" then
         inzoi.cli.execute("uimod.cfg_save mod_id=" .. MOD .. " section=settings key=ssp_pending value=" .. clean(content))
+    elseif kind == "ssp_orient" then
+        inzoi.cli.execute("uimod.cfg_save mod_id=" .. MOD .. " section=settings key=ssp_orient value=" .. clean(content))
     elseif kind == "ssp_log" then
         inzoi.cli.execute("uimod.cfg_save mod_id=" .. MOD .. " section=log key=ssp_last value=" .. clean(content))
     end

@@ -1,0 +1,31 @@
+{
+	"Struct": "TalkSelection",
+	"BaseVersion": "20261011.16078.W.MODKIT.EGS",
+	"SaveVersion": "20261011.16078.W.MODKIT.EGS",
+	"PatchList": [
+		{
+			"Method": "Append",
+			"Query": "TalkSelection[Id=Romance].InteractionBagList",
+			"Value": "Co_TryTo_Mood_Lover_Sofa",
+			"Enabled": true
+		},
+		{
+			"Method": "Append",
+			"Query": "TalkSelection[Id=Romance].InteractionBagList",
+			"Value": "Co_TryTo_Mood_Spouse_Sofa",
+			"Enabled": true
+		},
+		{
+			"Method": "Append",
+			"Query": "TalkSelection[Id=Romance].InteractionBagList",
+			"Value": "Co_TryTo_Mood_Lover_PhoneBooth",
+			"Enabled": true
+		},
+		{
+			"Method": "Append",
+			"Query": "TalkSelection[Id=Romance].InteractionBagList",
+			"Value": "Co_TryTo_Mood_Spouse_PhoneBooth",
+			"Enabled": true
+		}
+	]
+}

@@ -1,0 +1,33 @@
+{
+	"Struct": "InteractionBag",
+	"BaseVersion": "20261011.16078.W.MODKIT.EGS",
+	"SaveVersion": "20261011.16078.W.MODKIT.EGS",
+	"PatchList": [
+		{
+			"Method": "Override",
+			"Query": "InteractionBag_Talk[Id=Co_TryTo_Mood_Spouse_Event_Tent].InteractionSequence[2]",
+			"Value":
+			{
+				"Id": "3",
+				"Probability": 1,
+				"bSequencial": true,
+				"EnableConditionId": "CanMood_Spouse_02",
+				"SequenceStartInfos": [],
+				"MainInteractionId": "None",
+				"InteractionInfos": [
+					{
+						"InteractionId": "RequestCoop",
+						"Label": "A",
+						"SuccessNextLabel": "None",
+						"FailNextLabel": "None",
+						"bIsOptional": false
+					}
+				],
+				"CoopId": "Co_TryTo_Mood_Event_Tent",
+				"bIsTalk": false,
+				"NextInteractionBagId": "None"
+			},
+			"Enabled": true
+		}
+	]
+}

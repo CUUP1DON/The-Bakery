@@ -2,6 +2,7 @@
 -- inzoi.message.send_to_sim. Only the one Zoi the message is addressed to gets it; the rest stay idle.
 
 local C = require("Shared.SSPConfig")
+local Orient = require("Shared.SSPOrient")
 
 local M = {}
 
@@ -41,7 +42,7 @@ function M.on_begin(self, owner) end
 ---@param kind string
 ---@param content string
 function M.on_lua_message(self, owner, kind, content)
-    if kind ~= "ssp_cfg" and kind ~= "ssp_recover" and kind ~= "ssp_stage" then return end
+    if kind ~= "ssp_cfg" and kind ~= "ssp_recover" and kind ~= "ssp_stage" and kind ~= "ssp_orient_rec" then return end
     local ok, id = pcall(function() return owner:GetEntityId() end)
     if ok then
         -- GetEntityId may return a plain number or an FB1EntityId struct
@@ -50,6 +51,10 @@ function M.on_lua_message(self, owner, kind, content)
     end
     if kind == "ssp_stage" then
         advance_stage(owner, content)
+        return
+    end
+    if kind == "ssp_orient_rec" then
+        Orient.load_record(content)
         return
     end
     if kind == "ssp_cfg" then

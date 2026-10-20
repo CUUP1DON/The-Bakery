@@ -11,13 +11,14 @@
 -- Flow: bed result (target = bed, partner resolved from the talk) -> check settings + eligibility -> pick the
 -- mother -> set mother Female / partner Male (simulation side only) -> Prepare + PregnancyTest_Success buff (its add-script starts the pregnancy, so the player gets the test prompt) -> KEEP the swap ->
 -- watch the mother's pregnancy state -> restore both genders once it leaves PregnancyTest.
--- M+F pairs are never touched. Marriage is never checked (partner is passed explicitly).
+-- M+F pairs: the mod hands the woman the game's own test result (see start_mixed). Marriage is never checked (partner is passed explicitly).
 --
 -- Settings (allowMM/allowFF/motherMode/bothChance/autonomy) come from the UI window's saved config through
 -- the B1 bridge (B1/Main.lua -> Zoi/SSPBridge.lua -> Shared/SSPConfig.lua). Unreadable = defaults.
 -- The pending swap is persisted through the same bridge so a crash or quit mid-swap is repaired next start.
 
 local C = require("Shared.SSPConfig")
+local Orient = require("Shared.SSPOrient")
 
 local CONFIG = {
     -- InteractionBag ids. "fire" bags are the bed results (Success = the game's roll won, Fail = it lost; the
@@ -424,13 +425,39 @@ local function is_npc_pair(a, b)
 end
 
 local function attempt_allowed(a, b)
+    -- a man + woman pair is never held back by the same-sex autonomy switches
+    local xa, xb = find_bio(a), find_bio(b)
+    if xa and xb then
+        local g1, g2 = get_gender(xa), get_gender(xb)
+        if g1 and g2 and g1 ~= g2 then return true end
+    end
     -- npcCouples is its own switch: two town NPCs (not played) count when it is on, whatever "autonomy" says
     if C.cfg.npc and is_npc_pair(a, b) then return true end
     -- autonomy off = Zois do not suggest it on their own; attempts the player directs (a possessed partner) still count
     return C.cfg.auto or is_possessed(a) or is_possessed(b)
 end
 
-local function handle_attempt(self, a, b)
+-- Man + woman: the game's own bed scripts no longer hand out the test (they must not give both women of a female pair
+-- a test), so the mod gives the woman the game's own test result itself: Prepare (the man's genetics) and the
+-- PregnancyTest_Success / _Failure buff, exactly what the vanilla script would have done. The game starts the
+-- pregnancy from the buff for a man + woman pair.
+local function start_mixed(self, woman, man, wbio, mbio, outcome)
+    if outcome == "fail" or not family_ok(wbio) then
+        local ok = add_buff(woman, man, CONFIG.fail_buff)
+        log("man+woman: negative test for", woman, tostring(ok))
+        return
+    end
+    run_pregnancy_instruction(man, woman, "Prepare")
+    local ok = add_buff(woman, man, CONFIG.test_buff)
+    log("man+woman: gave " .. CONFIG.test_buff .. " to the woman", woman, "man", man, tostring(ok))
+    -- the man may carry as well (settings: man can be pregnant + bothChance), decided once her pregnancy shows
+    if ok and C.cfg.mfman and C.cfg.both > 0 and is_youth_plus(mbio) then
+        self.mixed[woman] = { woman = woman, man = man, t0 = os.clock(), rolled = false, hit = false }
+        log("man+woman: watching for the man's chance, bothChance", C.cfg.both)
+    end
+end
+
+local function handle_attempt(self, a, b, outcome)
     if not attempt_allowed(a, b) then return end
     local key = math.min(a, b) .. ":" .. math.max(a, b)
     local now = os.clock()
@@ -453,19 +480,17 @@ local function handle_attempt(self, a, b)
     log("pair genders", tostring(ga), tostring(gb))
     if not ga or not gb then return end
     if ga ~= gb then
-        -- mixed pair: vanilla handles the woman. Only when bothChance > 0 do we watch for a second,
-        -- additional pregnancy for the man (started later, see process_mixed).
-        if C.cfg.both > 0 and ((ga == 2 and gb == 3) or (ga == 3 and gb == 2)) then
+        -- mixed pair: only a bed result (or a Set the Mood roll) decides; the talk alone says nothing
+        if outcome and ((ga == 2 and gb == 3) or (ga == 3 and gb == 2)) then
             local woman, man = a, b
             if ga == 3 then woman, man = b, a end
             local wbio = (woman == a) and ba or bb
             local mbio = (man == a) and ba or bb
             if is_youth_plus(wbio) and is_youth_plus(mbio) then
                 if is_pregnant(wbio) or is_pregnant(mbio) then
-                    log("man+woman: someone is already pregnant, not watching", woman, man)
+                    log("man+woman: someone is already pregnant, nothing to do", woman, man)
                 else
-                    self.mixed[woman] = { woman = woman, man = man, t0 = now, rolled = false, hit = false }
-                    log("man+woman attempt watched: woman", woman, "man", man, "bothChance", C.cfg.both)
+                    start_mixed(self, woman, man, wbio, mbio, outcome)
                 end
             end
         end
@@ -514,6 +539,8 @@ local function handle_attempt(self, a, b)
     end
 end
 
+local handle_mood
+
 local function on_interaction_finished(self, a, b, c)
     -- Payload is one table (entity_id, interaction_bag_id, target_entity_id); positional args are accepted too.
     local entity_id, bag_id, target_id
@@ -529,6 +556,14 @@ local function on_interaction_finished(self, a, b, c)
         log("saw interaction", name, entity_id, target_id)
     end
 
+    -- every Set the Mood version, including the unmarried sauna one (Co_TryTo_Love_Sauna); not the high-teen one
+    if (string.sub(name, 1, 14) == "Co_TryTo_Mood_" and string.sub(name, 15, 18) ~= "HIgh") or name == "Co_TryTo_Love_Sauna" then
+        if type(entity_id) == "number" and type(target_id) == "number" and target_id >= 0 and entity_id ~= target_id and find_bio(target_id) then
+            log("saw Set the Mood " .. name, "by", entity_id, "target", target_id)
+            handle_mood(self, entity_id, target_id, name)
+        end
+        return
+    end
     local fire, arm = CONFIG.fire_bags[name], CONFIG.arm_bags[name]
     if not fire and not arm then return end
     if type(entity_id) ~= "number" or type(target_id) ~= "number" then return end
@@ -563,7 +598,27 @@ local function on_interaction_finished(self, a, b, c)
     end
     if partner == entity_id or partner < 0 then return end
     if not attempt_allowed(entity_id, partner) then return end
-    handle_attempt(self, entity_id, partner)
+    handle_attempt(self, entity_id, partner, string.find(name, "_Fail", 1, true) and "fail" or "success")
+end
+
+-- ---------------------------------------------------------------- Set the Mood
+
+-- The game's Set the Mood has no pregnancy chance of its own: roll the setting, check the gate, then treat a hit like a
+-- successful try for a baby (same-sex pairs use the normal flow, a man + woman pair gets the game's own test).
+handle_mood = function(self, a, b, name)
+    if C.cfg.mood <= 0 or a == b then return end
+    local key = "mood:" .. math.min(a, b) .. ":" .. math.max(a, b)
+    local now = os.clock()
+    if self.locked[key] and now - self.locked[key] < 60 then return end
+    self.locked[key] = now
+    local roll = math.random() * 100
+    if roll >= C.cfg.mood then
+        log("Set the Mood (" .. name .. "): no baby this time (chance " .. C.cfg.mood .. "%)")
+        return
+    end
+    log("Set the Mood (" .. name .. "): a baby may come (chance " .. C.cfg.mood .. "%)", a, b)
+    self.locked[math.min(a, b) .. ":" .. math.max(a, b)] = nil
+    handle_attempt(self, a, b, "success")
 end
 
 -- ---------------------------------------------------------------- man+woman: extra pregnancy for the man
@@ -704,6 +759,7 @@ function M.on_tick(self, manager, dt)
     self.last_poll = now
     C.flush_log()
     process_recovery(self)
+    pcall(Orient.tick, now)
     process_mixed(self, now)
 
     -- talk interactions whose bed result never came: treat the talk's end as the attempt

@@ -45,6 +45,22 @@ The state does not move until something starts it, so code that waits for a stat
 
 The test's finish script cancels the pregnancy if the household is already full (8 members, newborns count). The cheat command refuses too ("family capacity"). The player sees a negative result and the game's "Struggling to Get Pregnant" buffs. That is the game's rule.
 
+## Cause 6: the bed scripts and a man + woman couple
+
+The mod's change to the bed result scripts (so two women are not both handed a test) also stopped them handing the woman of a man + woman couple her test, because the scripts check the partner's gender and the "partner" in a bed result is the bed. The result was no "!" for man + woman couples. The mod now gives the woman the game's own test result itself (`PregnancyTest_Success` or `PregnancyTest_Failure`, whichever the bed rolled).
+
+## Cause 7: the game's romance check
+
+Almost every romantic option, and the Romance stat itself, depends on a check called `IsLovable`. It reads each Zoi's list of genders they are attracted to (`RomanceTargetList`, in the Bio component's gender identity setting). Every Zoi in a new game lists only the opposite gender, so two men or two women are never "lovable": the game refuses to raise their Romance ("romance: not lovable") and shows its romantic mismatch interactions. Both Zois need to list the other's gender. The Same-Sex Romance setting adds a Zoi's own gender to that list for adult Zois, remembers which Zois it changed, and puts them back when it is turned off.
+
+## Set the Mood
+
+Set the Mood has no pregnancy chance in the base game. The mod rolls a chance when a Set the Mood interaction finishes, and a hit is treated like a successful try for a baby. The base game's rules for it also carry the lovable check, and a few have bugs of their own:
+- The rules for every version (bed, tent, sofa, phone booth, sauna) are rewritten so same-sex pairs pass. The game's own check still applies to man + woman couples.
+- The spouse version in the tent uses the bed's scene for spouses with a Family bond of 30 or more, so the game looks for a double bed at the tent and gives up with "Unable to find a target or location for a cooperative interaction." The mod points it at the tent's own scene.
+- The sofa and phone booth versions are not in the game's Romance talk list, so they never appear. The mod adds them.
+- The sauna scene looks for a bench (an object that offers `Sit_bench01`) rather than the sauna heater, so it needs a bench near the heater.
+
 ## Why "Suggest Having a Baby" is still offered
 
 That is a symptom, not a separate bug. The baby action's conditions check pregnancy state. If the Zoi never became pregnant, the game correctly sees two non-pregnant Zois and offers the action again.
@@ -68,17 +84,25 @@ That is a symptom, not a separate bug. The baby action's conditions check pregna
    - Pregnant men can use the toilet test, gender reveal, sonogram, partner chats, and the mirror check (with the right animation, patch by Nyami).
 10. **Makes the requirements adjustable at runtime** (unmarried Friendship and Romance, married Family bond, and how close friends must be to talk about a pregnancy). The numbers are scalar `data.patch` calls from a boot script, since the Lua command line cannot pass a JSON value.
 
+11. **Hands the woman of a man + woman couple her test result** (Cause 6), and only lets the man carry too when "Man can carry (M+F)" and the both partners chance are on.
+12. **Rolls a pregnancy chance for Set the Mood** and keeps the game's own Set the Mood otherwise (see above). The Friendship and Romance numbers for it are patched at runtime, like the other requirements.
+13. **Same-Sex Romance** (Cause 7): a sweep every 15 seconds over every character. The Zois it changes are saved (settings key `ssp_orient`) so turning the setting off restores them, even after a restart.
+
 ## What we verified
 
 - Same-sex pairs reached `PregnancyTest` and `PregnancyEarly`, with genetics from both parents, the belly, and the stage timers. A baby from a male carrier recorded both parents' IDs and had a face between the two parents' (212 of 245 face parameters between them).
 - Married, unmarried (romance), and friends-only couples all got pregnant. The cheat toast was not seen.
 - The requirement numbers land on the right condition rows, and the trimester picker moves a pregnancy Early, Mid, Late.
-- Man + woman couples are unchanged.
+- Man + woman couples get the "!" again: a vanilla bed fail gave the woman the negative test, and a Set the Mood hit started a pregnancy.
+- Same-sex couples are offered Set the Mood at the bed, the tent, the sauna (married), the sofa and the phone booth. The Friendship and Romance numbers show or hide the option as set.
+- Same-Sex Romance ran over 462 characters with none failing.
 
 ## What we could not fully verify
 
 - A negative test through the failure buff has not been seen happening in the game.
 - The "play the birth scene" option for male carriers, and the Town Autonomy setting, have had no end-to-end test.
+- A man carrying in a man + woman couple ("Man can carry (M+F)" on) has not been seen happening.
+- The sofa and phone booth scenes have not been looked at closely; the base game may never have finished them.
 - We can't say why the game's own start is unreliable for same-gender pairs.
 
 ## If you want to build on this

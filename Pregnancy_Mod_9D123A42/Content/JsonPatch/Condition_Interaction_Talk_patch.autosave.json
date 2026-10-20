@@ -1700,6 +1700,2976 @@
 				}
 			],
 			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_Bed].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Bed_Double_ForCondition",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_Bed].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_Event_Tent].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Event_Tent",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_Event_Tent].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_Sofa01].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsMatchingRomanceTarget",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "TRUE",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RomanticOrientation",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "TRUE",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Sofa01",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_Sofa01].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_PhoneBooth01].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsMatchingRomanceTarget",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "TRUE",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RomanticOrientation",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "TRUE",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "PhoneBooth01",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Lover_PhoneBooth01].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_Bed].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Bed_Double_ForCondition",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_Bed].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_Event_Tent].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Event_Tent",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_Event_Tent].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_Sofa01].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Sofa01",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_Sofa01].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_PhoneBooth01].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "PhoneBooth01",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Spouse_PhoneBooth01].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Sauna_Spouse].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "SaunaHeater",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Spouse",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Family",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Sauna_Spouse].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Sauna_Lover].AndConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Self",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "GrowthStep",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Youth",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsSiteHasObjectTemplateTag",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "SaunaHeater",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "IsFamilyRelationship",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
+		},
+		{
+			"Method": "Override",
+			"Query": "Condition_Interaction_Talk[Id=CanMood_Sauna_Lover].OrConditionsList",
+			"Value": [
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "IsLovable",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "None",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Male",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": -30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				},
+				{
+					"Conditions": [
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "Youth_Lover",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "RelationshipName",
+							"CompareType": "NotEqual",
+							"UseHand": "Default",
+							"S1": "engagement",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "romance",
+							"S2": "None",
+							"F1": 30,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "RelationshipStat",
+							"CompareType": "GreaterOrEqual",
+							"UseHand": "Default",
+							"S1": "Friendship",
+							"S2": "None",
+							"F1": -1000,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Self",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						},
+						{
+							"BaseObject": "Target",
+							"Command": "Gender",
+							"CompareType": "Equal",
+							"UseHand": "Default",
+							"S1": "Female",
+							"S2": "None",
+							"F1": 0,
+							"F2": 0
+						}
+					]
+				}
+			],
+			"Enabled": true
 		}
 	]
 }
